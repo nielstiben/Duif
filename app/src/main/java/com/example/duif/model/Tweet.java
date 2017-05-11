@@ -5,8 +5,8 @@ public class Tweet {
     public long id;
     public String text;
     public boolean truncated;
-    public TweetEntity[] entities;
-    public TweetEntity[] extendedEntities;
+    public Entity[] entities;
+    public Entity[] extendedEntities;
     public String source;
     public Tweet inReplyTo;
     public User user;
@@ -25,7 +25,7 @@ public class Tweet {
     }
 
     // Full constructor
-    public Tweet(String createdAt, long id, String text, boolean truncated, TweetEntity[] entities, TweetEntity[] extendedEntities, String source, Tweet inReplyTo, User user, long retweetCount, long favoritedCount, boolean retweeted, boolean favorited, boolean possiblySensitive, String lang) {
+    public Tweet(String createdAt, long id, String text, boolean truncated, Entity[] entities, Entity[] extendedEntities, String source, Tweet inReplyTo, User user, long retweetCount, long favoritedCount, boolean retweeted, boolean favorited, boolean possiblySensitive, String lang) {
         this.createdAt = createdAt;
         this.id = id;
         this.text = text;
@@ -59,11 +59,11 @@ public class Tweet {
         return truncated;
     }
 
-    public TweetEntity[] getEntities() {
+    public Entity[] getEntities() {
         return entities;
     }
 
-    public TweetEntity[] getExtendedEntities() {
+    public Entity[] getExtendedEntities() {
         return extendedEntities;
     }
 
