@@ -15,7 +15,7 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Tweet[] tweets;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         String JSONString = getJSONStringFromFile("output.json");
 
-        LinkedList<Tweet> tweets = parseJSON(JSONString);
+        ArrayList<Tweet> tweets = parseJSON(JSONString);
     }
 
     private String getJSONStringFromFile(String filename) {
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         return JSONString;
     }
 
-    public LinkedList<Tweet> parseJSON(String JSONString) {
-        LinkedList<Tweet> tweets = new LinkedList();
+    public ArrayList<Tweet> parseJSON(String JSONString) {
+        ArrayList<Tweet> tweets = new ArrayList();
 
         try {
             JSONObject jsonObj = new JSONObject(JSONString);
