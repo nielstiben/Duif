@@ -41,9 +41,8 @@ public class MainActivity extends AppCompatActivity {
             is.read(buffer);
             is.close();
             JSONString = new String(buffer, "UTF-8");
-            //textView.setText(JSONString);
         } catch (IOException e) {
-            textView.setText(e.getMessage());
+            e.printStackTrace();
         }
         return JSONString;
     }
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 Tweet tweet = new Tweet(createdAt,text);
                 // adding status to the list
                 tweets.add(tweet);
-                textView.setText(text);
             }
 
         } catch (JSONException e) {
