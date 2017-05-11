@@ -5,4 +5,5 @@ package com.example.duif.model;
  */
 
 public class User {
+
 }
