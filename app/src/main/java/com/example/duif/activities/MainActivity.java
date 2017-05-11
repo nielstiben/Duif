@@ -2,10 +2,13 @@ package com.example.duif.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.duif.R;
 import com.example.duif.model.Tweet;
+import com.example.duif.view.MenuBarTile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,53 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Tweet> tweets = parseJSON(JSONString);
 
+        // Set menu bar tiles
+        final MenuBarTile mbtHome = (MenuBarTile)findViewById(R.id.mbt_home);
+        final MenuBarTile mbtSecond = (MenuBarTile)findViewById(R.id.mbt_second);
+        final MenuBarTile mbtThird = (MenuBarTile)findViewById(R.id.mbt_third);
+        final MenuBarTile mbtFourth = (MenuBarTile)findViewById(R.id.mbt_fourth);
+
+        mbtHome.setIcon(R.drawable.ic_home);
+        mbtHome.setIconSelected(R.drawable.ic_home_selected);
+        mbtHome.setState(0);
+
+        mbtHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(2);
+                mbtSecond.setState(0);
+                mbtThird.setState(0);
+                mbtFourth.setState(0);
+            }
+        });
+
+        mbtSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtSecond.setState(2);
+                mbtThird.setState(0);
+                mbtFourth.setState(0);
+            }
+        });
+        mbtThird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtSecond.setState(0);
+                mbtThird.setState(2);
+                mbtFourth.setState(0);
+            }
+        });
+        mbtFourth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtSecond.setState(0);
+                mbtThird.setState(0);
+                mbtFourth.setState(2);
+            }
+        });
         // Set TweetListFragment
 
     }

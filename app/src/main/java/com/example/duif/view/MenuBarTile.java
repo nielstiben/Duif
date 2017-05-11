@@ -9,13 +9,17 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.duif.R;
 
 public class MenuBarTile extends RelativeLayout {
-    private Drawable icon;
-    private boolean selected;
+    private int icon;
+    private int iconBeingPressed;
+    private int iconSelected;
+
+    private int state = 0;
 
     public MenuBarTile(Context context) {
         super(context);
@@ -43,8 +47,24 @@ public class MenuBarTile extends RelativeLayout {
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.menu_bar_tile, this);
 
-        // set background color
-        this.setBackgroundColor(Color.LTGRAY);
+        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+
+        // initial state
+        if(state == 0) {
+            imageView.setImageResource(icon);
+            this.setBackgroundColor(Color.LTGRAY);
+
+        }
+        // being pressed
+        if(state == 1) {
+            imageView.setImageResource(iconBeingPressed);
+
+        }
+        // selected
+        if(state == 2) {
+            imageView.setImageResource(iconSelected);
+            this.setBackgroundColor(Color.rgb(225,235,235));
+        }
 
         // set line color
         whiteLine = new Paint();
@@ -57,6 +77,18 @@ public class MenuBarTile extends RelativeLayout {
         super.onDraw(canvas);
         canvas.drawLine(0, getHeight(), 0, 0, whiteLine);
 
-
+    }
+    public void setIcon(int location){
+        this.icon = location;
+    }
+    public void setIconSelected(int location){
+        this.iconSelected = location;
+    }
+    public void setIconPressed(int location){
+        this.iconBeingPressed = location;
+    }
+    public void setState(int state){
+        this.state = state;
+        initTile();
     }
 }
