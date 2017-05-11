@@ -18,7 +18,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Tweet[] tweets;
     TextView textView;
 
     @Override
