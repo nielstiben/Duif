@@ -5,5 +5,8 @@
     tools:context="com.example.duif.Fragment.ListFragment">
 
 
-
+    <ListView
+        android:id="@+id/listview_tweets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>
