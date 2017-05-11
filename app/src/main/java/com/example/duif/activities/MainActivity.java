@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         String JSONString = getJSONStringFromFile("output.json");
 
         ArrayList<Tweet> tweets = parseJSON(JSONString);
+
+        // Set TweetListFragment
+
     }
 
     private String getJSONStringFromFile(String filename) {
