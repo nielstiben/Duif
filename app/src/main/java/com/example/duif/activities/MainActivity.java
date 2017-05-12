@@ -44,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
         final MenuBarTile mbtAbout = (MenuBarTile) findViewById(R.id.mbt_about);
 
         // Set menu bar tiles style;
-        mbtHome.setIcon(R.drawable.ic_home_selected);
-        mbtProfile.setIcon(R.drawable.ic_profile_selected);
-        mbtExplore.setIcon(R.drawable.ic_explore_selected);
-        mbtAbout.setIcon(R.drawable.ic_about_selected);
-
         // Home tile
         mbtHome.setIcon(R.drawable.ic_home);
         mbtHome.setIconSelected(R.drawable.ic_home_selected);
