@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.duif.activities.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.example.duif.activities.MainActivity"
+    android:clipToPadding="false">
+
 
 
     <LinearLayout
@@ -12,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:elevation="4dp"
+        android:background="@android:color/black"
+        >
 
         <com.example.duif.view.MenuBarTile
             android:id="@+id/mbt_home"
@@ -21,24 +26,32 @@
             android:layout_weight="1" />
 
         <com.example.duif.view.MenuBarTile
-            android:id="@+id/mbt_second"
+            android:id="@+id/mbt_profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <com.example.duif.view.MenuBarTile
-            android:id="@+id/mbt_third"
+            android:id="@+id/mbt_explore"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <com.example.duif.view.MenuBarTile
-            android:id="@+id/mbt_fourth"
+            android:id="@+id/mbt_about"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="365dp">
+
+    </FrameLayout>
+
 
 </LinearLayout>

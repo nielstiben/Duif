@@ -1,12 +1,18 @@
 package com.example.duif.activities;
 
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duif.R;
+import com.example.duif.fragment.AboutFragment;
+import com.example.duif.fragment.ExploreFragment;
+import com.example.duif.fragment.ListFragment;
+import com.example.duif.fragment.ProfileFragment;
 import com.example.duif.model.Tweet;
 import com.example.duif.view.MenuBarTile;
 
@@ -32,53 +38,111 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Tweet> tweets = parseJSON(JSONString);
 
         // Set menu bar tiles
-        final MenuBarTile mbtHome = (MenuBarTile)findViewById(R.id.mbt_home);
-        final MenuBarTile mbtSecond = (MenuBarTile)findViewById(R.id.mbt_second);
-        final MenuBarTile mbtThird = (MenuBarTile)findViewById(R.id.mbt_third);
-        final MenuBarTile mbtFourth = (MenuBarTile)findViewById(R.id.mbt_fourth);
+        final MenuBarTile mbtHome = (MenuBarTile) findViewById(R.id.mbt_home);
+        final MenuBarTile mbtProfile = (MenuBarTile) findViewById(R.id.mbt_profile);
+        final MenuBarTile mbtExplore = (MenuBarTile) findViewById(R.id.mbt_explore);
+        final MenuBarTile mbtAbout = (MenuBarTile) findViewById(R.id.mbt_about);
 
+        // Set menu bar tiles style;
+        mbtHome.setIcon(R.drawable.ic_home_selected);
+        mbtProfile.setIcon(R.drawable.ic_profile_selected);
+        mbtExplore.setIcon(R.drawable.ic_explore_selected);
+        mbtAbout.setIcon(R.drawable.ic_about_selected);
+
+        // Home tile
         mbtHome.setIcon(R.drawable.ic_home);
         mbtHome.setIconSelected(R.drawable.ic_home_selected);
+
         mbtHome.setState(0);
 
+        // Profile tile
+        mbtProfile.setIcon(R.drawable.ic_profile);
+        mbtProfile.setIconSelected(R.drawable.ic_profile_selected);
+        mbtProfile.setState(0);
+
+        // Explore tile
+        mbtExplore.setIcon(R.drawable.ic_explore);
+        mbtExplore.setIconSelected(R.drawable.ic_explore_selected);
+        mbtExplore.setState(0);
+
+        // About tile
+        mbtAbout.setIcon(R.drawable.ic_about);
+        mbtAbout.setIconSelected(R.drawable.ic_about_selected);
+        mbtAbout.setState(0);
+
+        // Uncomment the following to invert colors
+
+//        mbtHome.setIcon(R.drawable.ic_home_selected);
+//        mbtProfile.setIcon(R.drawable.ic_profile_selected);
+//        mbtExplore.setIcon(R.drawable.ic_explore_selected);
+//        mbtAbout.setIcon(R.drawable.ic_about_selected);
+//        mbtHome.setState(0);
+//        mbtProfile.setState(0);
+//        mbtExplore.setState(0);
+//        mbtAbout.setState(0);
+
+
+        // Menu bar tiles onclicklisteners
         mbtHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mbtHome.setState(2);
-                mbtSecond.setState(0);
-                mbtThird.setState(0);
-                mbtFourth.setState(0);
+                mbtProfile.setState(0);
+                mbtExplore.setState(0);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ListFragment())
+                        .commit();
             }
         });
 
-        mbtSecond.setOnClickListener(new View.OnClickListener() {
+        mbtProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mbtHome.setState(0);
-                mbtSecond.setState(2);
-                mbtThird.setState(0);
-                mbtFourth.setState(0);
+                mbtProfile.setState(2);
+                mbtExplore.setState(0);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ProfileFragment())
+                        .commit();
             }
         });
-        mbtThird.setOnClickListener(new View.OnClickListener() {
+        mbtExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mbtHome.setState(0);
-                mbtSecond.setState(0);
-                mbtThird.setState(2);
-                mbtFourth.setState(0);
+                mbtProfile.setState(0);
+                mbtExplore.setState(2);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ExploreFragment())
+                        .commit();
             }
         });
-        mbtFourth.setOnClickListener(new View.OnClickListener() {
+        mbtAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mbtHome.setState(0);
-                mbtSecond.setState(0);
-                mbtThird.setState(0);
-                mbtFourth.setState(2);
+                mbtProfile.setState(0);
+                mbtExplore.setState(0);
+                mbtAbout.setState(2);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new AboutFragment())
+                        .commit();
             }
         });
+
         // Set TweetListFragment
+
 
     }
 
@@ -116,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: 11-5-2017  Add more values
 
                 // parse attributes into java object
-                Tweet tweet = new Tweet(createdAt,text);
+                Tweet tweet = new Tweet(createdAt, text);
                 // adding status to the list
                 tweets.add(tweet);
             }

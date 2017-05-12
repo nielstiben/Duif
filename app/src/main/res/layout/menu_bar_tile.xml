@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="70dp"
-    tools:context="com.example.duif.activities.MainActivity">
+    tools:context="com.example.duif.activities.MainActivity"
+    >
 
     <ImageView
         android:id="@+id/imageView"
@@ -13,4 +14,5 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:cropToPadding="false" />
+
 </RelativeLayout>
