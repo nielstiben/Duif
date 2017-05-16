@@ -78,14 +78,15 @@ public class MenuBarTile extends RelativeLayout {
         canvas.drawLine(0, getHeight(), 0, 0, whiteLine);
 
     }
-    public void setIcon(int location){
-        this.icon = location;
+    public void setIcon(int icon){
+        this.icon = icon;
+        this.iconSelected = icon;
+        this.iconBeingPressed = icon;
     }
-    public void setIconSelected(int location){
-        this.iconSelected = location;
-    }
-    public void setIconPressed(int location){
-        this.iconBeingPressed = location;
+    public void setIcon(int initial, int selected, int pressed){
+        this.icon = initial;
+        this.iconSelected = selected;
+        this.iconBeingPressed = pressed;
     }
     public void setState(int state){
         this.state = state;

@@ -33,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         String JSONString = getJSONStringFromFile("output.json");
 
         ArrayList<Tweet> tweets = parseJSON(JSONString);
+        showWelcomeMessage(); 
 
         // Set menu bar tiles
         final MenuBarTile mbtHome = (MenuBarTile) findViewById(R.id.mbt_home);
@@ -46,35 +48,20 @@ public class MainActivity extends AppCompatActivity {
         // Set menu bar tiles style;
         // Home tile
         mbtHome.setIcon(R.drawable.ic_home);
-        mbtHome.setIconSelected(R.drawable.ic_home_selected);
-
         mbtHome.setState(0);
 
         // Profile tile
         mbtProfile.setIcon(R.drawable.ic_profile);
-        mbtProfile.setIconSelected(R.drawable.ic_profile_selected);
         mbtProfile.setState(0);
 
         // Explore tile
         mbtExplore.setIcon(R.drawable.ic_explore);
-        mbtExplore.setIconSelected(R.drawable.ic_explore_selected);
         mbtExplore.setState(0);
 
         // About tile
         mbtAbout.setIcon(R.drawable.ic_about);
-        mbtAbout.setIconSelected(R.drawable.ic_about_selected);
         mbtAbout.setState(0);
 
-        // Uncomment the following to invert colors
-
-//        mbtHome.setIcon(R.drawable.ic_home_selected);
-//        mbtProfile.setIcon(R.drawable.ic_profile_selected);
-//        mbtExplore.setIcon(R.drawable.ic_explore_selected);
-//        mbtAbout.setIcon(R.drawable.ic_about_selected);
-//        mbtHome.setState(0);
-//        mbtProfile.setState(0);
-//        mbtExplore.setState(0);
-//        mbtAbout.setState(0);
 
 
         // Menu bar tiles onclicklisteners
@@ -139,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         // Set TweetListFragment
 
 
+
     }
 
     private String getJSONStringFromFile(String filename) {
@@ -184,6 +172,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void showWelcomeMessage(){
+        Toast.makeText(getApplicationContext(), "Roekoe!", Toast.LENGTH_SHORT).show();
     }
 
 }
