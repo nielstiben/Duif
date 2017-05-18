@@ -38,12 +38,12 @@ public class TweetListAdapter extends ArrayAdapter<Tweet>{
 
         ImageView icon = (ImageView) view.findViewById(R.id.icon);
 
-        name.setText(""+tweet.getUser().getName());
-        screeName.setText(""+tweet.getUser().getScreenName());
+//        name.setText(""+tweet.getUser().getName());
+//        screeName.setText(""+tweet.getUser().getScreenName());
         text.setText(""+tweet.getText());
         date.setText(""+tweet.getCreatedAt());
-        retweet.setText(""+tweet.getRetweetCount());
-        favourites.setText("" + tweet.getFavoritedCount());
+//        retweet.setText(""+tweet.getRetweetCount());
+//        favourites.setText("" + tweet.getFavoritedCount());
         //icon.setImageResource(tweet.getUser().getId_str())
 
 
