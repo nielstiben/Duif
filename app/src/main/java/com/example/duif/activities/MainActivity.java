@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
+    public static ArrayList<Tweet> tweets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         String JSONString = getJSONStringFromFile("output.json");
 
-        ArrayList<Tweet> tweets = parseJSON(JSONString);
+         tweets = parseJSON(JSONString);
         showWelcomeMessage(); 
 
         // Set menu bar tiles
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         // About tile
         mbtAbout.setIcon(R.drawable.ic_about);
         mbtAbout.setState(0);
+
+
 
 
 
@@ -145,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<Tweet> parseJSON(String JSONString) {
-        ArrayList<Tweet> tweets = new ArrayList();
-
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
         try {
             JSONObject jsonObj = new JSONObject(JSONString);
 
@@ -164,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // parse attributes into java object
                 Tweet tweet = new Tweet(createdAt, text);
+
                 // adding status to the list
                 tweets.add(tweet);
             }
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return tweets;
     }
 
     public void showWelcomeMessage(){
