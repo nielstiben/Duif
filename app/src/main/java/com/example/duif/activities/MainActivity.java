@@ -21,8 +21,7 @@ import com.example.duif.view.MenuBarTile;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.w3c.dom.Text;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,4 +153,5 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Roekoe!", Toast.LENGTH_SHORT).show();
     }
 
+    private void OnClick(View view)
 }
