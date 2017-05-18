@@ -26,20 +26,20 @@ public class TweetListAdapter extends ArrayAdapter<Tweet>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View v = convertView;
+        View view = convertView;
         if(convertView==null){
-            v = inflater.inflate(R.layout.list_item_tweet, parent, false);
+            view = inflater.inflate(R.layout.list_item_tweet, parent, false);
         }
         Tweet tweet = getItem(position);
 
-        TextView name = (TextView) v.findViewById(R.id.name);
-        TextView screeName = (TextView) v.findViewById(R.id.screen_name);
-        TextView text = (TextView) v.findViewById(R.id.text);
-        TextView date = (TextView) v.findViewById(R.id.date);
-        TextView retweet = (TextView) v.findViewById(R.id.retweets);
-        TextView favourites = (TextView) v.findViewById(R.id.favourites);
+        TextView name = (TextView) view.findViewById(R.id.name);
+        TextView screeName = (TextView) view.findViewById(R.id.screen_name);
+        TextView text = (TextView) view.findViewById(R.id.text);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView retweet = (TextView) view.findViewById(R.id.retweets);
+        TextView favourites = (TextView) view.findViewById(R.id.favourites);
 
-        ImageView icon = (ImageView) v.findViewById(R.id.icon);
+        ImageView icon = (ImageView) view.findViewById(R.id.icon);
 
 //        name.setText(""+tweet.getUser().getName());
 //        screeName.setText(""+tweet.getUser().getScreenName());
@@ -51,6 +51,6 @@ public class TweetListAdapter extends ArrayAdapter<Tweet>{
 
 
 
-        return v;
+        return view;
     }
 }

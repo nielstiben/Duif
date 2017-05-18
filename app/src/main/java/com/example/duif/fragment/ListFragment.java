@@ -21,11 +21,8 @@ public class ListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        ArrayList<Tweet> tweets = new ArrayList<>();
-
-        tweets.add(new Tweet("10-01-2007", "Pietje paulus zijn bericht."));
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        TweetListAdapter adapter = new TweetListAdapter(getContext(), MainActivity.tweets);
+        TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
 
         ListView listView = (ListView) view.findViewById(R.id.listview_tweets);
         listView.setAdapter(adapter);
