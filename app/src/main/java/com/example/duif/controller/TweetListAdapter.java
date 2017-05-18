@@ -14,10 +14,11 @@ import android.widget.TextView;
 import com.example.duif.R;
 import com.example.duif.model.Tweet;
 
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 public class TweetListAdapter extends ArrayAdapter<Tweet>{
-    public TweetListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Tweet[] tweets) {
+    public TweetListAdapter(@NonNull Context context , ArrayList<Tweet> tweets) {
         super(context, R.layout.list_item_tweet, tweets);
     }
 
@@ -37,13 +38,13 @@ public class TweetListAdapter extends ArrayAdapter<Tweet>{
 
         ImageView icon = (ImageView) view.findViewById(R.id.icon);
 
-        name.setText(tweet.getUser().getName());
-        screeName.setText(tweet.getUser().getScreenName());
-        text.setText(tweet.getText());
-        date.setText(tweet.getCreatedAt());
+        name.setText(""+tweet.getUser().getName());
+        screeName.setText(""+tweet.getUser().getScreenName());
+        text.setText(""+tweet.getText());
+        date.setText(""+tweet.getCreatedAt());
         retweet.setText(""+tweet.getRetweetCount());
         favourites.setText("" + tweet.getFavoritedCount());
-        //icon.setImageResource(tweet.getUser().getId_str());
+        //icon.setImageResource(tweet.getUser().getId_str())
 
 
 
