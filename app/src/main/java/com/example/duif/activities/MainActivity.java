@@ -9,10 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duif.R;
+import com.example.duif.communication.Connection;
 import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
 import com.example.duif.fragment.ProfileFragment;
+import com.example.duif.model.Content;
 import com.example.duif.model.Tweet;
 import com.example.duif.view.MenuBarTile;
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         String JSONString = getJSONStringFromFile("output.json");
 
-         tweets = parseJSON(JSONString);
+        Connection.parseJSON(JSONString);
         showWelcomeMessage(); 
 
         // Set menu bar tiles
@@ -146,36 +148,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return JSONString;
-    }
-
-    public ArrayList<Tweet> parseJSON(String JSONString) {
-        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-        try {
-            JSONObject jsonObj = new JSONObject(JSONString);
-
-            // Getting JSON Array node
-            JSONArray statuses = jsonObj.getJSONArray("statuses");
-
-            // Loop through all statuses
-            for (int i = 0; i < statuses.length(); i++) {
-                // Getting the current status/tweet
-                JSONObject status = statuses.getJSONObject(i);
-
-                String createdAt = status.getString("created_at");
-                String text = status.getString("text");
-                // TODO: 11-5-2017  Add more values
-
-                // parse attributes into java object
-                Tweet tweet = new Tweet(createdAt, text);
-
-                // adding status to the list
-                tweets.add(tweet);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return tweets;
     }
 
     public void showWelcomeMessage(){

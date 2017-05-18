@@ -7,12 +7,25 @@ import java.util.ArrayList;
  */
 
 public class Content {
-    private Content instance = null;
+    private static Content instance = null;
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
 
     private  Content() {
     }
 
+    public static Content getInstance(){
+        if (instance == null){
+            instance = new Content();
+        }
+        return instance;
+    }
 
+    public void setTweets(ArrayList<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
+    public ArrayList<Tweet> getTweets() {
+        return tweets;
+    }
 }
