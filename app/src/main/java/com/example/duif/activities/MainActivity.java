@@ -1,9 +1,11 @@
 package com.example.duif.activities;
 
-import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duif.R;
@@ -12,17 +14,23 @@ import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
 import com.example.duif.fragment.ProfileFragment;
+import com.example.duif.model.Content;
+import com.example.duif.model.Tweet;
 import com.example.duif.view.MenuBarTile;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
 
-    private MenuBarTile mbtHome;
-    private MenuBarTile mbtProfile;
-    private MenuBarTile mbtExplore;
-    private MenuBarTile mbtAbout;
+public class MainActivity extends AppCompatActivity {
+    TextView textView;
+    public static ArrayList<Tweet> tweets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +38,99 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         String JSONString = getJSONStringFromFile("output.json");
+
         Connection.parseJSON(JSONString);
+        showWelcomeMessage(); 
 
-        // show our welcome message
-        showWelcomeMessage();
+        // Set menu bar tiles
+        final MenuBarTile mbtHome = (MenuBarTile) findViewById(R.id.mbt_home);
+        final MenuBarTile mbtProfile = (MenuBarTile) findViewById(R.id.mbt_profile);
+        final MenuBarTile mbtExplore = (MenuBarTile) findViewById(R.id.mbt_explore);
+        final MenuBarTile mbtAbout = (MenuBarTile) findViewById(R.id.mbt_about);
 
-        // initiate the tiles in the top menu
-        initiateMenu();
+        // Set menu bar tiles style;
+        // Home tile
+        mbtHome.setIcon(R.drawable.ic_home);
+        mbtHome.setState(0);
+
+        // Profile tile
+        mbtProfile.setIcon(R.drawable.ic_profile);
+        mbtProfile.setState(0);
+
+        // Explore tile
+        mbtExplore.setIcon(R.drawable.ic_explore);
+        mbtExplore.setState(0);
+
+        // About tile
+        mbtAbout.setIcon(R.drawable.ic_about);
+        mbtAbout.setState(0);
+
+
+
+
+
+        // Menu bar tiles onclicklisteners
+        mbtHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(2);
+                mbtProfile.setState(0);
+                mbtExplore.setState(0);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ListFragment())
+                        .commit();
+            }
+        });
+
+        mbtProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtProfile.setState(2);
+                mbtExplore.setState(0);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ProfileFragment())
+                        .commit();
+            }
+        });
+        mbtExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtProfile.setState(0);
+                mbtExplore.setState(2);
+                mbtAbout.setState(0);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new ExploreFragment())
+                        .commit();
+            }
+        });
+        mbtAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mbtHome.setState(0);
+                mbtProfile.setState(0);
+                mbtExplore.setState(0);
+                mbtAbout.setState(2);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, new AboutFragment())
+                        .commit();
+            }
+        });
+
+        // Set TweetListFragment
+
+
 
     }
 
@@ -55,68 +149,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return JSONString;
     }
 
-    public void showWelcomeMessage() {
+    public void showWelcomeMessage(){
         Toast.makeText(getApplicationContext(), "Roekoe!", Toast.LENGTH_SHORT).show();
     }
 
-    private void initiateMenu(){
-        // Find menu bar tiles
-        mbtHome = (MenuBarTile) findViewById(R.id.mbt_home);
-        mbtProfile = (MenuBarTile) findViewById(R.id.mbt_profile);
-        mbtExplore = (MenuBarTile) findViewById(R.id.mbt_explore);
-        mbtAbout = (MenuBarTile) findViewById(R.id.mbt_about);
-
-        // Set menu bar icons
-        mbtHome.setIcon(R.drawable.ic_home);
-        mbtProfile.setIcon(R.drawable.ic_profile);
-        mbtExplore.setIcon(R.drawable.ic_explore);
-        mbtAbout.setIcon(R.drawable.ic_about);
-
-        // set unselected state to all tiles
-        mbtHome.setState(0);
-        mbtProfile.setState(0);
-        mbtExplore.setState(0);
-        mbtAbout.setState(0);
-
-
-        // set menu bar tiles onclicklisteners
-        mbtHome.setOnClickListener(this);
-        mbtProfile.setOnClickListener(this);
-        mbtExplore.setOnClickListener(this);
-        mbtAbout.setOnClickListener(this);
-    }
-    @Override
-    public void onClick(View v) {
-        mbtHome.setState(0);
-        mbtProfile.setState(0);
-        mbtExplore.setState(0);
-        mbtAbout.setState(0);
-
-        Fragment fragment = new ListFragment();
-
-        switch (v.getId()) {
-            case R.id.mbt_home:
-                mbtHome.setState(2);
-                fragment = new ListFragment();
-                break;
-            case R.id.mbt_profile:
-                mbtProfile.setState(2);
-                fragment = new ProfileFragment();
-                break;
-            case R.id.mbt_explore:
-                mbtExplore.setState(2);
-                fragment = new ExploreFragment();
-                break;
-            case R.id.mbt_about:
-                mbtAbout.setState(2);
-                fragment = new AboutFragment();
-                break;
-        }
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content, fragment)
-                .commit();
-    }
-
 }
-
