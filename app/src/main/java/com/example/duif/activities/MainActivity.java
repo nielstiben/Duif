@@ -29,7 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // create tweetlist from example file
         String JSONString = getJSONStringFromFile("output.json");
+
+        // setup connection
         Connection.parseJSON(JSONString);
 
         // show our welcome message
