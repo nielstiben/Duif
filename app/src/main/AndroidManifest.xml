@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.duif">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -19,9 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
-        <activity
-            android:name=".activities.TestActivity"
-            android:label="@string/title_activity_test"></activity>
+        <activity android:name=".activities.LoginActivity"/>
     </application>
 
 </manifest>

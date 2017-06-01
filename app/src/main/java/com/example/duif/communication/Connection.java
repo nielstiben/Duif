@@ -7,6 +7,7 @@ import com.example.duif.model.Tweet;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.ScribeJavaConfig;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import org.json.JSONArray;
@@ -24,10 +25,14 @@ import java.util.ArrayList;
 public class Connection {
     private String token;
 
-    final OAuth10aService service = new ServiceBuilder()
-            .apiKey("your_api_key")
-            .apiSecret("your_api_secret")
-            .build(TwitterApi.instance());
+    public static void authorise() {
+
+        final OAuth10aService service = new ServiceBuilder()
+                .apiKey("your_api_key")
+                .apiSecret("your_api_secret")
+                .build(TwitterApi.instance());
+    }
+
 
     protected void getToken(){
 
