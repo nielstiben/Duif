@@ -23,5 +23,4 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.LoginActivity"/>
     </application>
-
 </manifest>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
+import com.example.duif.controller.JSON;
 import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String JSONString = getJSONStringFromFile("output.json");
 
         // setup connection
-        Connection.parseJSON(JSONString);
+        JSON.parseJSON(JSONString);
 
         // show our welcome message
         showWelcomeMessage();
