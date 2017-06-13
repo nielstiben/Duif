@@ -6,12 +6,21 @@ import android.util.Log;
 
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
+import com.github.scribejava.apis.TwitterApi;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.exceptions.OAuthConnectionException;
+import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
+    private static final String API_KEY = "0PkiewnTf18DRv4buIx9JszMT";
+    private static final String API_SECRET = "K6XLrVWu18eeJC0hAsQdJHINhVr5eiRdEIXoHhYa6AEpoHAdzR";
+    private static final String CALLBACK_URL = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,4 +36,5 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }
