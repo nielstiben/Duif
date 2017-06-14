@@ -1,8 +1,11 @@
 package com.example.duif.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
@@ -20,9 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ExecutorService executorService = Executors.newFixedThreadPool(1);
-
-
-
         Runnable task = new Runnable() {
             @Override
             public void run() {
@@ -46,6 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Button for starting the WebViewActivity
+        Button loginButton = (Button)findViewById(R.id.btn_login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+                startActivity(webViewIntent);
+            }
+        });
 
     }
 
