@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-public class Connection extends AsyncTask<URL, Integer, Long> {
+public class Connection extends AsyncTask<Void, Void, Void> {
     private final static String API_KEY = "0PkiewnTf18DRv4buIx9JszMT";
     private final static String API_SECRET = "K6XLrVWu18eeJC0hAsQdJHINhVr5eiRdEIXoHhYa6AEpoHAdzR";
 
@@ -20,17 +20,18 @@ public class Connection extends AsyncTask<URL, Integer, Long> {
         System.out.println("connection");
     }
 
-    @Override
-    protected Long doInBackground(URL... params) {
 
+    @Override
+    protected Void doInBackground(Void... params) {
         final OAuth10aService service = new ServiceBuilder()
-            .apiKey(API_KEY)
-            .apiSecret(API_SECRET)
-            .build(TwitterApi.instance());
+                .apiKey(API_KEY)
+                .apiSecret(API_SECRET)
+                .build(TwitterApi.instance());
 
 
         try {
             final OAuth1RequestToken requestToken = service.getRequestToken();
+            System.out.println("DEBUG: " + requestToken);
         } catch (IOException e) {
             e.printStackTrace();
         }
