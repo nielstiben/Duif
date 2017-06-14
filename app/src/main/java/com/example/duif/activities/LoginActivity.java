@@ -22,12 +22,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        final String url = "http://bit.ly/1c9G9kP";
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Runnable task = new Runnable() {
+
+            String url;
             @Override
             public void run() {
                 System.out.println("TEST");
-                String url = Connection.getInstance().getRequestUrl();
+                url = Connection.getInstance().getRequestUrl();
                 System.out.println("TEST2");
                 System.out.println(url);
                 //System.out.println(getOauthToken(url));
@@ -53,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
+                webViewIntent.putExtra("URL", url);
                 startActivity(webViewIntent);
             }
         });

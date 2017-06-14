@@ -14,8 +14,11 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
-        WebView webContent = (WebView)findViewById(R.id.webView);
-        webContent.setWebViewClient(new WebViewClient());
-        webContent.loadUrl("http://bit.ly/1c9G9kP");
+        String url = getIntent().getStringExtra("URL");
+        if(url != null){
+            WebView webContent = (WebView)findViewById(R.id.webView);
+            webContent.setWebViewClient(new WebViewClient());
+            webContent.loadUrl(url);
+        }
     }
 }
