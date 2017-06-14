@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
                 //Connection.getInstance().getAccesToken(getOauthToken(url));
+                //8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=>
             }
         };
 
