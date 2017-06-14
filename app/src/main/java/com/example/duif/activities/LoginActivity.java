@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -21,12 +22,15 @@ public class LoginActivity extends AppCompatActivity {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
 
 
+
         Runnable task = new Runnable() {
             @Override
             public void run() {
+                System.out.println("TEST");
                 String url = Connection.getInstance().getRequestUrl();
+                System.out.println("TEST2");
                 System.out.println(url);
-                System.out.println(getOauthToken(url));
+                //System.out.println(getOauthToken(url));
 
                 //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
                 //Connection.getInstance().getAccesToken(getOauthToken(url));
