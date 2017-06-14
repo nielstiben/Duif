@@ -17,7 +17,7 @@ public class Connection extends AsyncTask<URL, Integer, Long> {
 
 
     public static void connect() throws IOException, InterruptedException, ExecutionException{
-
+        System.out.println("connection");
     }
 
     @Override
