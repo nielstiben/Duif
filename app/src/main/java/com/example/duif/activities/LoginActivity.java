@@ -7,7 +7,6 @@ import android.util.Log;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,7 +19,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ExecutorService executorService = Executors.newFixedThreadPool(1);
-
 
 
         Runnable task = new Runnable() {
