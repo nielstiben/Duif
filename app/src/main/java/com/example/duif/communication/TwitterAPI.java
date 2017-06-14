@@ -8,6 +8,19 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
  */
 
 public class TwitterAPI extends DefaultApi10a {
+
+    private static TwitterAPI instance;
+
+    private TwitterAPI() {
+    }
+
+    public static TwitterAPI getInstance(){
+        if (instance == null){
+             instance = new TwitterAPI();
+        }
+        return instance;
+    }
+
     @Override
     public String getRequestTokenEndpoint() {
         return "https://api.twitter.com/oauth/request_token";
