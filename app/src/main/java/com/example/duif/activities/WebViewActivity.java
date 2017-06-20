@@ -1,6 +1,6 @@
 package com.example.duif.activities;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebResourceRequest;
@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import com.example.duif.Interfaces.UrlHandler;
 import com.example.duif.R;
 
+import java.net.URL;
 import java.sql.SQLOutput;
 
 public class WebViewActivity extends AppCompatActivity {
@@ -25,21 +26,24 @@ public class WebViewActivity extends AppCompatActivity {
         System.out.println("DIRECT URL = " + url);
         if (url != null) {
             webContent = (WebView) findViewById(R.id.webView);
+            webContent.loadUrl(url);
             webContent.setWebViewClient(new WebViewClient() {
                 @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                    webContent.loadUrl(url);
-                    System.out.println("Loads url correct");
-                    super.onPageStarted(view, url, favicon);
-                }
-
-                @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                    System.out.println("URL CHANGED");
-                    //listener.onLoggedIn(webContent.getUrl()); //TODO Later on check if it's really the logged in url.
-                    return super.shouldOverrideUrlLoading(view, request);
+                     System.out.println("URL CHANGED " + webContent.getUrl());
+                        view.loadUrl(request.getUrl().toString());
+
+                    if (webContent.getUrl().startsWith("https://saxion.nl/connection/?oauth_token=")){
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        listener.onLoggedIn(webContent.getUrl()); //TODO Later on check if it's really the logged in url.
+                        startActivity(intent);
+
+                    }
+                    //TODO display error
+                    return true;
                 }
             });
+
         }
 
     }

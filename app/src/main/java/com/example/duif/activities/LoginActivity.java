@@ -12,6 +12,9 @@ import com.example.duif.Interfaces.UrlHandler;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 import com.github.scribejava.core.model.OAuth1AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -19,34 +22,41 @@ import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity  implements UrlHandler{
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
+    private String verifier;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    Runnable getAccessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        WebViewActivity.addListener(this);
+
         final String[] url = new String[1];
-        final int accessToken;
 
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+
         Runnable task = new Runnable() {
-
 
             @Override
             public void run() {
-                System.out.println("TEST");
                 url[0] = Connection.getInstance().getRequestUrl();
-                System.out.println(url[0]);
-                //System.out.println(getOauthToken(u
-
-                //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
         }
         };
 
+        getAccessToken = new Runnable() {
+            @Override
+            public void run() {
+                Connection.getInstance().getAccesToken(verifier);
+            }
+        };
+
+
+
         executorService.execute(task);
 
-        try {
 
+        try {
             Log.d("Connection", "Connection up");
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,15 +75,16 @@ public class LoginActivity extends AppCompatActivity  implements UrlHandler{
 
     }
 
-    private String getOauthToken(String url) {
-        String[] parts = url.split("(?<=oauth_verifier=)");
+    private String getOauthVerifier(String url) {
+        String[] parts = url.split("oauth_verifier=");
         return parts[1];
     }
 
     @Override
     public void onLoggedIn(String url) {
-        System.out.println("DEBUG URL ============ " + url);
-        //OAuth1AccessToken token = Connection.getInstance().getAccesToken(getOauthToken(url));
-        //System.out.println("DEBUG ======== " + token);
+        verifier = getOauthVerifier(url);
+        executorService.execute(getAccessToken);
     }
+
+
 }

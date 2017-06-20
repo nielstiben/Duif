@@ -4,6 +4,9 @@ import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.IOException;
@@ -16,6 +19,7 @@ public class Connection {
     private final String API_SECRET = "K6XLrVWu18eeJC0hAsQdJHINhVr5eiRdEIXoHhYa6AEpoHAdzR";
     private final String CALLBACK_URL = "https://saxion.nl/connection/";
     private final OAuth10aService service;
+    private OAuth1AccessToken accessToken;
     private OAuth1RequestToken requestToken;
 
     private Connection() {
@@ -45,11 +49,25 @@ public class Connection {
 
     public OAuth1AccessToken getAccesToken(String verifier){
         try {
-            return service.getAccessToken(requestToken, verifier);
+            System.out.println("RequestToken = " + requestToken);
+            accessToken = service.getAccessToken(requestToken, verifier);
+            return accessToken;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void TEST(){
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
+        service.signRequest(accessToken, request); // the access token from step 4
+        final Response response = request.send();
+        try {
+            System.out.println(response.getBody());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
