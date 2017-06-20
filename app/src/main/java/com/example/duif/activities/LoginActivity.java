@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 
+import com.example.duif.Interfaces.UrlHandler;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
+import com.github.scribejava.core.model.OAuth1AccessToken;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  implements UrlHandler{
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
     @Override
@@ -24,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final String[] url = new String[1];
         final int accessToken;
+
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Runnable task = new Runnable() {
 
@@ -36,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
                 //System.out.println(getOauthToken(u
 
                 //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
-                //Connection.getInstance().getAccesToken(getOauthToken(url));
-                //8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=>
         }
         };
 
@@ -68,4 +70,10 @@ public class LoginActivity extends AppCompatActivity {
         return parts[1];
     }
 
+    @Override
+    public void onLoggedIn(String url) {
+        System.out.println("DEBUG URL ============ " + url);
+        //OAuth1AccessToken token = Connection.getInstance().getAccesToken(getOauthToken(url));
+        //System.out.println("DEBUG ======== " + token);
+    }
 }
