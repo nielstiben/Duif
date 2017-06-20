@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final String url = "http://bit.ly/1c9G9kP";
+        final String url = "https://google.com/";
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Runnable task = new Runnable() {
 
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
                 //Connection.getInstance().getAccesToken(getOauthToken(url));
                 //8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=> 8=>
-            }
+        }
         };
 
         executorService.execute(task);
