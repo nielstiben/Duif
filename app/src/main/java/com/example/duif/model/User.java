@@ -1,14 +1,12 @@
 package com.example.duif.model;
 
-import android.graphics.Color;
-
 /**
  * Created by raffe on 10-5-2017.
  */
 
 public class User {
     private int id;
-    private String id_str;
+    private String idStr;
     private String name;
     private String screenName;
     private String location;
@@ -17,19 +15,19 @@ public class User {
     private Entity[] entities;
     private boolean isProtected;
 
-    private int followers_count;
-    private int friends_count;
-    private int listed_count;
+    private int followersCount;
+    private int friendsCount;
+    private int listedCount;
 
     private String createdAt;
 
-    private int favourites_count;
-    private long utc_offset;
+    private int favouritesCount;
+    private int utcOffset;
     private String timeZone;
     private boolean geoEnabled;
     private boolean verified;
 
-    private long statusesCount;
+    private int statusesCount;
 
     private String lang;
 
@@ -39,10 +37,10 @@ public class User {
     private boolean isTranslator;
     private boolean isTranslatorEnabled;
 
-    private String backgroundColor;
+    private String profileBackgroundColor;
 
-    private String backgroundImageUrl;
-    private String backgroundImageUrlHTTPS;
+    private String profileBackgroundImageUrl;
+    private String profileBackgroundImageUrlHTTPS;
 
     private String profileImageUrl;
     private String profileImageUrlHTTPS;
@@ -77,12 +75,12 @@ public class User {
         this.id = id;
     }
 
-    public String getId_str() {
-        return id_str;
+    public String getIdStr() {
+        return idStr;
     }
 
-    public void setId_str(String id_str) {
-        this.id_str = id_str;
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 
     public String getName() {
@@ -141,28 +139,28 @@ public class User {
         isProtected = aProtected;
     }
 
-    public int getFollowers_count() {
-        return followers_count;
+    public int getFollowersCount() {
+        return followersCount;
     }
 
-    public void setFollowers_count(int followers_count) {
-        this.followers_count = followers_count;
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
     }
 
-    public int getFriends_count() {
-        return friends_count;
+    public int getFriendsCount() {
+        return friendsCount;
     }
 
-    public void setFriends_count(int friends_count) {
-        this.friends_count = friends_count;
+    public void setFriendsCount(int friendsCount) {
+        this.friendsCount = friendsCount;
     }
 
-    public int getListed_count() {
-        return listed_count;
+    public int getListedCount() {
+        return listedCount;
     }
 
-    public void setListed_count(int listed_count) {
-        this.listed_count = listed_count;
+    public void setListedCount(int listedCount) {
+        this.listedCount = listedCount;
     }
 
     public String getCreatedAt() {
@@ -173,20 +171,20 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public int getFavourites_count() {
-        return favourites_count;
+    public int getFavouritesCount() {
+        return favouritesCount;
     }
 
-    public void setFavourites_count(int favourites_count) {
-        this.favourites_count = favourites_count;
+    public void setFavouritesCount(int favouritesCount) {
+        this.favouritesCount = favouritesCount;
     }
 
-    public long getUtc_offset() {
-        return utc_offset;
+    public int getUtcOffset() {
+        return utcOffset;
     }
 
-    public void setUtc_offset(long utc_offset) {
-        this.utc_offset = utc_offset;
+    public void setUtcOffset(int utcOffset) {
+        this.utcOffset = utcOffset;
     }
 
     public String getTimeZone() {
@@ -213,11 +211,11 @@ public class User {
         this.verified = verified;
     }
 
-    public long getStatusesCount() {
+    public int getStatusesCount() {
         return statusesCount;
     }
 
-    public void setStatusesCount(long statusesCount) {
+    public void setStatusesCount(int statusesCount) {
         this.statusesCount = statusesCount;
     }
 
@@ -261,28 +259,28 @@ public class User {
         isTranslatorEnabled = translatorEnabled;
     }
 
-    public String getBackgroundColor() {
-        return backgroundColor;
+    public String getProfileBackgroundColor() {
+        return profileBackgroundColor;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public void setProfileBackgroundColor(String profileBackgroundColor) {
+        this.profileBackgroundColor = profileBackgroundColor;
     }
 
-    public String getBackgroundImageUrl() {
-        return backgroundImageUrl;
+    public String getProfileBackgroundImageUrl() {
+        return profileBackgroundImageUrl;
     }
 
-    public void setBackgroundImageUrl(String backgroundImageUrl) {
-        this.backgroundImageUrl = backgroundImageUrl;
+    public void setProfileBackgroundImageUrl(String profileBackgroundImageUrl) {
+        this.profileBackgroundImageUrl = profileBackgroundImageUrl;
     }
 
-    public String getBackgroundImageUrlHTTPS() {
-        return backgroundImageUrlHTTPS;
+    public String getProfileBackgroundImageUrlHTTPS() {
+        return profileBackgroundImageUrlHTTPS;
     }
 
-    public void setBackgroundImageUrlHTTPS(String backgroundImageUrlHTTPS) {
-        this.backgroundImageUrlHTTPS = backgroundImageUrlHTTPS;
+    public void setProfileBackgroundImageUrlHTTPS(String profileBackgroundImageUrlHTTPS) {
+        this.profileBackgroundImageUrlHTTPS = profileBackgroundImageUrlHTTPS;
     }
 
     public String getProfileImageUrl() {

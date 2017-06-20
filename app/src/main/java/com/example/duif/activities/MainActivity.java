@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.duif.R;
-import com.example.duif.controller.JSON;
+import com.example.duif.controller.JSONParser;
 import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String ProfilePageJSONString = getJSONStringFromFile("output_user_profile.json");
 
 
-        // setup connection
-        JSON.parseTweetsJSON(TweetsJSONString);
+        // Setup tweet list
+        Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
-        Content.getInstance().setUserProfile(JSON.parseProfilePageJSON(ProfilePageJSONString));
+        Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
 
         // show our welcome message
         showWelcomeMessage();

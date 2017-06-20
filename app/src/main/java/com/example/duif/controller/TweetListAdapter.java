@@ -60,7 +60,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
 
         retweet.setText(String.valueOf(tweet.getRetweetCount()));
         favourites.setText(String.valueOf(tweet.getFavoritedCount()));
-        //icon.setImageResource(tweet.getUser().getId_str())
+        //icon.setImageResource(tweet.getUser().getIdStr())
 
 
         return view;
