@@ -22,18 +22,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final String url = "https://google.com/";
+        final String[] url = new String[1];
+        final int accessToken;
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Runnable task = new Runnable() {
 
-            String url;
+
             @Override
             public void run() {
                 System.out.println("TEST");
-                url = Connection.getInstance().getRequestUrl();
-                System.out.println("TEST2");
-                System.out.println(url);
-                //System.out.println(getOauthToken(url));
+                url[0] = Connection.getInstance().getRequestUrl();
+                System.out.println(url[0]);
+                //System.out.println(getOauthToken(u
 
                 //// TODO: 14/06/2017 shutoveridemethodloading -> return true als goed, false als fout. En dan die url in de onderstaande method
                 //Connection.getInstance().getAccesToken(getOauthToken(url));
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent webViewIntent = new Intent(getApplicationContext(), WebViewActivity.class);
-                webViewIntent.putExtra("URL", url);
+                webViewIntent.putExtra("URL", url[0] );
                 startActivity(webViewIntent);
             }
         });
