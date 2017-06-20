@@ -15,6 +15,7 @@ import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.model.Content;
 import com.example.duif.model.Tweet;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListFragment extends Fragment {
@@ -22,6 +23,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
+
         TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
 
         ListView listView = (ListView) view.findViewById(R.id.listview_tweets);

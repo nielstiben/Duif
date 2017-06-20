@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.duif.R;
-import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSON;
 import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
 import com.example.duif.fragment.ProfileFragment;
+import com.example.duif.model.Content;
 import com.example.duif.view.MenuBarTile;
 
 import java.io.IOException;
@@ -31,10 +31,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // create tweetlist from example file
-        String JSONString = getJSONStringFromFile("output.json");
+        String TweetsJSONString = getJSONStringFromFile("output_tweets.json");
+
+        // create profile page from example file
+        String ProfilePageJSONString = getJSONStringFromFile("output_user_profile.json");
+
 
         // setup connection
-        JSON.parseJSON(JSONString);
+        JSON.parseTweetsJSON(TweetsJSONString);
+
+        // Setup profile page
+        Content.getInstance().setUserProfile(JSON.parseProfilePageJSON(ProfilePageJSONString));
 
         // show our welcome message
         showWelcomeMessage();

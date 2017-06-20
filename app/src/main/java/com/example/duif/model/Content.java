@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Content {
     private static Content instance = null;
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-
+    private User userProfile;
 
     private  Content() {
     }
@@ -25,7 +25,16 @@ public class Content {
         this.tweets = tweets;
     }
 
+
     public ArrayList<Tweet> getTweets() {
         return tweets;
+    }
+
+    public User getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(User userProfile) {
+        this.userProfile = userProfile;
     }
 }

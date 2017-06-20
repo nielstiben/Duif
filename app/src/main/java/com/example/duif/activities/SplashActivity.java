@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-        if(!prefs.getBoolean("isLoggedIn", false)){
+        if(!prefs.getBoolean("isLoggedIn", true)){
             // show login screen
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
