@@ -1,10 +1,8 @@
 package com.example.duif.activities;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,13 +20,13 @@ import com.example.duif.view.MenuBarTile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String jsonTimeLine;
+    private String jsonProfile;
     private MenuBarTile mbtHome;
     private MenuBarTile mbtProfile;
     private MenuBarTile mbtExplore;
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
-        Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
+
 
         // show our welcome message
         showWelcomeMessage();
@@ -60,23 +58,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initiateMenu();
 
         if (LoginActivity.isLoogedIn) {
-            executorService.execute(getTimeLine);
+            executorService.execute(getJsonFromTwitter);
             System.out.println("DEBUG 2 = " + jsonTimeLine);
         }
 
     }
 
-    Runnable getTimeLine = new Runnable() {
+    Runnable getJsonFromTwitter = new Runnable() {
         @Override
         public void run() {
             jsonTimeLine = Connection.getInstance().getTimeLine();
-            loadtimeLine();
+            jsonProfile = Connection.getInstance().getProfile();
+            proccesData();
         }
     };
 
-    private void loadtimeLine(){
+    private void proccesData(){
         ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
         Content.getInstance().setTweets(tweets);
+        Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfile));
+
     }
 
 

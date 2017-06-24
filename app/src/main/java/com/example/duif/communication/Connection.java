@@ -73,4 +73,16 @@ public class Connection {
         return null;
     }
 
+    public String getProfile(){
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/update_profile.json", service);
+        service.signRequest(accessToken, request); // the access token from step 4
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
