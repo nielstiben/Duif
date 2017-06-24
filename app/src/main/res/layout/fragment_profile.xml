@@ -1,11 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fillViewport="false"
     tools:context="com.example.duif.fragment.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.duif.fragment.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -20,30 +25,30 @@
         android:id="@+id/iv_profile_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/profile_pic"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="17dp"
         android:layout_marginTop="92dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@mipmap/profile_pic" />
 
     <TextView
         android:id="@+id/tv_screen_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Screen Name"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_marginStart="10dp"
         android:layout_below="@+id/imageView2"
-        android:layout_toEndOf="@+id/iv_profile_image" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/iv_profile_image"
+        android:text="Screen Name"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name"
+        android:layout_alignStart="@+id/tv_screen_name"
         android:layout_below="@+id/tv_screen_name"
-        android:layout_alignStart="@+id/tv_screen_name" />
+        android:text="name" />
 
     <TextView
         android:id="@+id/tv_description"
@@ -51,41 +56,67 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/iv_profile_image"
         android:layout_below="@+id/iv_profile_image"
-        android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="14dp"
         android:text="Description"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
         android:textStyle="italic" />
 
+    <View
+        android:id="@+id/v_line1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/tv_description"
+        android:layout_marginTop="11dp"
+        android:background="#c0c0c0" />
+
     <LinearLayout
+        android:id="@+id/ll_count_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_description"
-        android:layout_marginTop="11dp"
-        android:weightSum="3"
-        android:orientation="horizontal">
+        android:layout_below="@+id/v_line1"
+        android:background="@android:color/background_light"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
 
         <TextView
             android:id="@+id/tv_statuses_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/tv_friends_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/tv_following_count"
+            android:id="@+id/tv_followers_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAlignment="center" />
     </LinearLayout>
+    <View
+        android:id="@+id/v_line2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@id/ll_count_bar"/>
+
+    <ListView
+        android:id="@+id/lv_own_tweets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_line2" />
 
 </RelativeLayout>
+</ScrollView>
