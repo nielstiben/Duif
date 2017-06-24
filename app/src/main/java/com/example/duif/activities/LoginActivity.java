@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity  implements UrlHandler{
+    public static boolean isLoogedIn = false;
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
     private String verifier;
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity  implements UrlHandler{
             @Override
             public void run() {
                 Connection.getInstance().getAccesToken(verifier);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         };
 

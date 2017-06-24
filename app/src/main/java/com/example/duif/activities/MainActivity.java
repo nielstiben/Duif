@@ -1,12 +1,15 @@
 package com.example.duif.activities;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.duif.R;
+import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
 import com.example.duif.fragment.AboutFragment;
 import com.example.duif.fragment.ExploreFragment;
@@ -17,13 +20,17 @@ import com.example.duif.view.MenuBarTile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private String jsonTimeLine;
     private MenuBarTile mbtHome;
     private MenuBarTile mbtProfile;
     private MenuBarTile mbtExplore;
     private MenuBarTile mbtAbout;
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // Setup tweet list
-        Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
+        //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
         Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
@@ -49,7 +56,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // initiate the tiles in the top menu
         initiateMenu();
 
+        if (LoginActivity.isLoogedIn) {
+            executorService.execute(getTimeLine);
+            System.out.println("DEBUG 2 = " + jsonTimeLine);
+        }
+
     }
+
+    Runnable getTimeLine = new Runnable() {
+        @Override
+        public void run() {
+            jsonTimeLine = Connection.getInstance().getTimeLine();
+            loadtimeLine();
+        }
+    };
+
+    private void loadtimeLine(){
+        Content.getInstance().setTweets(JSONParser.parseTweets(jsonTimeLine));
+    }
+
 
     private String getJSONStringFromFile(String filename) {
         String JSONString = null;

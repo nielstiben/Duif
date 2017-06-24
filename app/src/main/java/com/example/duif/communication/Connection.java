@@ -1,5 +1,6 @@
 package com.example.duif.communication;
 
+import com.example.duif.activities.LoginActivity;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
@@ -51,6 +52,8 @@ public class Connection {
         try {
             System.out.println("RequestToken = " + requestToken);
             accessToken = service.getAccessToken(requestToken, verifier);
+            LoginActivity.isLoogedIn = true;
+            System.out.println(LoginActivity.isLoogedIn);
             return accessToken;
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,16 +61,16 @@ public class Connection {
         return null;
     }
 
-    public void TEST(){
-        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
+    public String getTimeLine(){
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", service);
         service.signRequest(accessToken, request); // the access token from step 4
         final Response response = request.send();
         try {
-            System.out.println(response.getBody());
+            return response.getBody();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
 }
