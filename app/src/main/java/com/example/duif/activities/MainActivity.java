@@ -39,18 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // create tweetlist from example file
-        String TweetsJSONString = getJSONStringFromFile("output_tweets.json");
-
-        // create profile page from example file
-        String ProfilePageJSONString = getJSONStringFromFile("output_user_profile.json");
-
-
-        // Setup tweet list
-        //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
-
-        // Setup profile page
-       Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
+        if (LoginActivity.isLogedIn) {
+            executorService.execute(getJsonFromTwitter);
+            System.out.println("DEBUG 2 = " + jsonTimeLine);
+        }
 
         // show our welcome message
         showWelcomeMessage();
@@ -58,10 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // initiate the tiles in the top menu
         initiateMenu();
 
-        if (LoginActivity.isLogedIn) {
-            executorService.execute(getJsonFromTwitter);
-            System.out.println("DEBUG 2 = " + jsonTimeLine);
-        }
+
 
     }
 
