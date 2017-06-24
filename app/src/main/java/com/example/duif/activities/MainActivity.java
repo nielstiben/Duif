@@ -16,10 +16,13 @@ import com.example.duif.fragment.ExploreFragment;
 import com.example.duif.fragment.ListFragment;
 import com.example.duif.fragment.ProfileFragment;
 import com.example.duif.model.Content;
+import com.example.duif.model.Tweet;
 import com.example.duif.view.MenuBarTile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // Setup tweet list
-        Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
+        //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
         Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
@@ -72,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     private void loadtimeLine(){
-        Content.getInstance().setTweets(JSONParser.parseTweets(jsonTimeLine));
+        ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
+        Content.getInstance().setTweets(tweets);
     }
 
 

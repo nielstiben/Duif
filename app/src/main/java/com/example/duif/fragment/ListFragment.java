@@ -43,7 +43,6 @@ public class ListFragment extends Fragment{
         ListView listView = (ListView) view.findViewById(R.id.listview_tweets);
         listView.setAdapter(adapter);
 
-
         return view;
     }
 }
