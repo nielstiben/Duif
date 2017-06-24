@@ -160,7 +160,7 @@ public class JSONParser {
         try {
             // Getting JSON Array node
             JSONObject tweetObject = new JSONObject(JSONString);
-            JSONArray statuses = new JSONArray(tweetObject.toString());
+            JSONArray statuses = tweetObject.getJSONArray("statuses");
 
 
             // Loop through all statuses

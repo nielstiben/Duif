@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.duif.R;
 import com.example.duif.activities.MainActivity;
@@ -24,14 +25,16 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListFragment extends Fragment{
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        final FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
 
-        PostTweetDialog postTweetDialog = new PostTweetDialog();
+        final PostTweetDialog postTweetDialog = new PostTweetDialog();
 
         TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
         FloatingActionButton postTweet = (FloatingActionButton)view.findViewById(R.id.fab_post_tweet);
@@ -39,7 +42,11 @@ public class ListFragment extends Fragment{
         postTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    postTweetDialog.show(fragmentTransaction, "PostTweetFragment");
+                }catch (IllegalStateException e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -47,5 +54,7 @@ public class ListFragment extends Fragment{
         listView.setAdapter(adapter);
 
         return view;
+
     }
 }
+
