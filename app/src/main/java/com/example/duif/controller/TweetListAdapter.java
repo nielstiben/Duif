@@ -43,8 +43,6 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
         TextView retweet = (TextView) view.findViewById(R.id.retweets);
         TextView favourites = (TextView) view.findViewById(R.id.favourites);
 
-        ImageView icon = (ImageView) view.findViewById(R.id.icon);
-
         if (tweet.getUser().getName() != null) {
             name.setText(tweet.getUser().getName());
         }

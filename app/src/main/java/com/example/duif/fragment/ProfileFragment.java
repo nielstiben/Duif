@@ -46,10 +46,10 @@ public class ProfileFragment extends Fragment {
 //         Get all data out of the Content Singleton and put it in the views
         new DownloadImageFromInternet((ImageView)
                 view.findViewById(R.id.iv_profile))
-                .execute("http://pbs.twimg.com/profile_images/530814764687949824/npQQVkq8_normal.png");
+                .execute(Content.getInstance().getUserProfile().getProfileImageUrl());
         new DownloadImageFromInternet((ImageView)
                 view.findViewById(R.id.iv_banner))
-                .execute("https://pbs.twimg.com/profile_banners/2244994945/1396995246");
+                .execute(Content.getInstance().getUserProfile().getProfileBannerUrl());
 
 
         screenName.setText(Content.getInstance()

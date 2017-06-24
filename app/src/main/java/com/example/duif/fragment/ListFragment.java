@@ -1,5 +1,6 @@
 package com.example.duif.fragment;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ public class ListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
         PostTweetDialog postTweetDialog = new PostTweetDialog();
 
