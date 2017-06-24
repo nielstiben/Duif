@@ -32,6 +32,10 @@ public class ProfileFragment extends Fragment {
         TextView screenName = (TextView) view.findViewById(R.id.tv_screen_name);
         TextView name = (TextView) view.findViewById(R.id.tv_name);
         TextView description = (TextView) view.findViewById(R.id.tv_description);
+        TextView statusesCount = (TextView) view.findViewById(R.id.tv_statuses_count);
+        TextView friendsCount = (TextView) view.findViewById(R.id.tv_friends_count);
+        TextView followingCount = (TextView) view.findViewById(R.id.tv_following_count);
+
 
         screenName.setText(Content.getInstance()
                 .getUserProfile()
@@ -44,6 +48,12 @@ public class ProfileFragment extends Fragment {
         description.setText(Content.getInstance()
                 .getUserProfile()
                 .getDescription());
+
+        statusesCount.setText(
+                String.format("%s Tweets", String.valueOf(
+                        Content.getInstance()
+                                .getUserProfile()
+                                .getStatusesCount())));
 
 
         return view;

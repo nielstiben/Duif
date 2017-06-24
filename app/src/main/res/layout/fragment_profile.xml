@@ -8,46 +8,84 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@mipmap/banner_twitter" />
+
+    <ImageView
         android:id="@+id/iv_profile_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/profile_pic"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="92dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        app:srcCompat="@mipmap/profile_pic" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tv_screen_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/iv_profile_image"
-        android:layout_below="@+id/iv_profile_image"
-        android:layout_marginTop="15dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:layout_marginTop="10dp"
+        android:text="Screen Name"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_toEndOf="@+id/iv_profile_image" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/tv_screen_name"
+        android:text="name"
         android:layout_below="@+id/tv_screen_name"
-        android:text="TextView" />
+        android:layout_alignStart="@+id/tv_screen_name" />
 
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/view2"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView" />
+        android:layout_alignStart="@+id/iv_profile_image"
+        android:layout_below="@+id/iv_profile_image"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:text="Description"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        android:textStyle="italic" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#FF00FF00"
-        android:layout_below="@id/tv_name"
-        android:id="@+id/view2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_description"
+        android:layout_marginTop="11dp"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_statuses_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tv_friends_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tv_following_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
+
 </RelativeLayout>

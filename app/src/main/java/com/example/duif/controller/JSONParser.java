@@ -10,10 +10,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by wybrenoppedijk on 13/06/2017.
- */
-
 public class JSONParser {
     /**
      * Converts a Twitter JSON-String into a Java Object
@@ -56,7 +52,7 @@ public class JSONParser {
 
                 // Get the Tweet that the current tweet replied to
                 Tweet inReplyTo = null;
-                        //status.getInt("in_reply_to_status_id");
+                //status.getInt("in_reply_to_status_id");
 
                 // Get user of the tweet
                 //// TODO: 20-6-2017 Convert the user into an Object
@@ -94,7 +90,7 @@ public class JSONParser {
         return tweets;
     }
 
-    public static User parseUser(String JSONString){
+    public static User parseUser(String JSONString) {
         User user = new User();
         try {
             JSONObject userObj = new JSONObject(JSONString);
@@ -154,8 +150,6 @@ public class JSONParser {
 
             user.setNotifications(userObj.getBoolean("notifications"));
             user.setTranslatorType(userObj.getString("translator_type"));
-
-
 
 
         } catch (JSONException e) {
