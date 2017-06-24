@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Content {
     private static Content instance = null;
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<Tweet> userTweets = new ArrayList<>();
     private User userProfile;
 
     private  Content() {
@@ -25,6 +26,13 @@ public class Content {
         this.tweets = tweets;
     }
 
+    public void setUserTweets(ArrayList<Tweet> userTweets) {
+        this.userTweets = userTweets;
+    }
+
+    public ArrayList<Tweet> getUserTweets() {
+        return userTweets;
+    }
 
     public ArrayList<Tweet> getTweets() {
         return tweets;
@@ -33,6 +41,7 @@ public class Content {
     public User getUserProfile() {
         return userProfile;
     }
+
 
     public void setUserProfile(User userProfile) {
         this.userProfile = userProfile;

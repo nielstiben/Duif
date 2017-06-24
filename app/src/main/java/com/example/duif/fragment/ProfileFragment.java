@@ -83,7 +83,7 @@ public class ProfileFragment extends Fragment {
                                 .getFollowersCount())));
 
         //JSONParser.parseTweets(PROFILETWEETS);
-        TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
+        TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getUserTweets());
         ownTweetsList.setAdapter(adapter);
 
         // Scale the listview in the scroll view

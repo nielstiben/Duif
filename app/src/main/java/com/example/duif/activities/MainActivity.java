@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String jsonTimeLine;
     private String jsonProfile;
+    private String jsonProfileCredentials;
     private MenuBarTile mbtHome;
     private MenuBarTile mbtProfile;
     private MenuBarTile mbtExplore;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
-        Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
+       Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));
 
         // show our welcome message
         showWelcomeMessage();
@@ -68,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             jsonTimeLine = Connection.getInstance().getTimeLine();
-            //jsonProfile = Connection.getInstance().getProfile();
+            jsonProfile = Connection.getInstance().getProfile();
+            jsonProfileCredentials = Connection.getInstance().getUserProfileInformation();
             proccesData();
         }
     };
@@ -76,8 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void proccesData(){
         ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
         Content.getInstance().setTweets(tweets);
-        //System.out.println(jsonProfile);
-        //Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfile));
+        Content.getInstance().setUserTweets(JSONParser.parseTweets(jsonProfile));
+        System.out.println("Profile data:       " + jsonProfileCredentials);
+        Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfileCredentials));
 
     }
 

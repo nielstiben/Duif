@@ -1,6 +1,7 @@
 package com.example.duif.communication;
 
 import com.example.duif.activities.LoginActivity;
+import com.example.duif.model.Content;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
@@ -63,7 +64,7 @@ public class Connection {
 
     public String getTimeLine(){
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", service);
-        service.signRequest(accessToken, request); // the access token from step 4
+        service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
             return response.getBody();
@@ -76,7 +77,7 @@ public class Connection {
 
     public String getProfile(){
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json", service);
-        service.signRequest(accessToken, request); // the access token from step 4
+        service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
             return response.getBody();
@@ -85,5 +86,29 @@ public class Connection {
         }
         return null;
     }
+
+    public String getUserProfileInformation(){
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public String getUserCredentials(){
+//        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
+//        service.signRequest(accessToken, request);
+//        final Response response = request.send();
+//        try {
+//            return response.getBody();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 }

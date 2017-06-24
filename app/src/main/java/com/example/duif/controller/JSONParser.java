@@ -155,4 +155,18 @@ public class JSONParser {
         }
         return user;
     }
+
+//    public static String parseScreenName(String JSONString) {
+//        try {
+//            JSONObject json = new JSONObject(JSONString);
+//
+//            return json.getString("screen_name");
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return user;
+//    }
+
 }
