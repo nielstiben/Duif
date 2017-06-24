@@ -1,7 +1,9 @@
 package com.example.duif.controller;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.model.Tweet;
 
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class TweetListAdapter extends ArrayAdapter<Tweet> {
     public TweetListAdapter(@NonNull Context context, ArrayList<Tweet> tweets) {
@@ -47,22 +50,71 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
         }
 
         if (tweet.getUser().getScreenName() != null) {
-        screenName.setText(tweet.getUser().getScreenName());
+            screenName.setText(tweet.getUser().getScreenName());
         }
-
-        if (tweet.getText() != null){
+        if (tweet.getUser().getProfileImageUrl() != null) {
+            new DownloadImageFromInternet((ImageView) view.findViewById(R.id.icon)).execute(tweet.getUser().getProfileImageUrl());
+        }
+        if (tweet.getText() != null) {
             text.setText(tweet.getText());
         }
 
-        if (tweet.getCreatedAt() != null){
+        if (tweet.getCreatedAt() != null) {
             date.setText(tweet.getCreatedAt());
         }
 
         retweet.setText(String.valueOf(tweet.getRetweetCount()));
         favourites.setText(String.valueOf(tweet.getFavoritedCount()));
-        //icon.setImageResource(tweet.getUser().getIdStr())
+
+        // Set profile image:
 
 
         return view;
+    }
+
+    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+
+        ImageView imageView;
+
+
+        public DownloadImageFromInternet(ImageView imageView) {
+
+            this.imageView = imageView;
+
+
+        }
+
+
+        protected Bitmap doInBackground(String... urls) {
+
+            String imageURL = urls[0];
+
+            Bitmap bimage = null;
+
+            try {
+
+                InputStream in = new java.net.URL(imageURL).openStream();
+
+                bimage = BitmapFactory.decodeStream(in);
+
+
+            } catch (Exception e) {
+
+                Log.e("Error Message", e.getMessage());
+
+                e.printStackTrace();
+
+            }
+
+            return bimage;
+
+        }
+
+
+        protected void onPostExecute(Bitmap result) {
+
+            imageView.setImageBitmap(result);
+
+        }
     }
 }

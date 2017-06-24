@@ -55,11 +55,8 @@ public class JSONParser {
                 //status.getInt("in_reply_to_status_id");
 
                 // Get user of the tweet
-                //// TODO: 20-6-2017 Convert the user into an Object
                 JSONObject userObject = status.getJSONObject("user");
-                User user = new User();
-                user.setName(userObject.getString("name"));
-                user.setScreenName(userObject.getString("screen_name"));
+                User user = parseUser(userObject.toString());
 
                 // Get the amount of retweets and favourites
                 int retweetCount = status.getInt("retweet_count");

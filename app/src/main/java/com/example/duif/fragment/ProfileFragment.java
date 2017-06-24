@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
 
 
         // Initiate all views
-        ImageView profileImage = (ImageView) view.findViewById(R.id.iv_profile_image);
+        ImageView profileImage = (ImageView) view.findViewById(R.id.icon);
         TextView screenName = (TextView) view.findViewById(R.id.tv_screen_name);
         TextView name = (TextView) view.findViewById(R.id.tv_name);
         TextView description = (TextView) view.findViewById(R.id.tv_description);
