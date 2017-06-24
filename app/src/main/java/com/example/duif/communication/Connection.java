@@ -99,16 +99,16 @@ public class Connection {
         return null;
     }
 
-//    public String getUserCredentials(){
-//        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
-//        service.signRequest(accessToken, request);
-//        final Response response = request.send();
-//        try {
-//            return response.getBody();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    public String getSearchTweet(String question){
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/search/tweets.json?q=" + question + "&count=10", service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

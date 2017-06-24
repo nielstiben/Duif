@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Content {
     private static Content instance = null;
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<Tweet> tweetsOnSearch = new ArrayList<>();
     private ArrayList<Tweet> userTweets = new ArrayList<>();
     private User userProfile;
 
@@ -45,5 +46,13 @@ public class Content {
 
     public void setUserProfile(User userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public ArrayList<Tweet> getTweetsOnSearch() {
+        return tweetsOnSearch;
+    }
+
+    public void setTweetsOnSearch(ArrayList<Tweet> tweetsOnSearch) {
+        this.tweetsOnSearch = tweetsOnSearch;
     }
 }
