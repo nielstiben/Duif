@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // initiate the tiles in the top menu
         initiateMenu();
 
-        if (LoginActivity.isLoogedIn) {
+        if (LoginActivity.isLogedIn) {
             executorService.execute(getJsonFromTwitter);
             System.out.println("DEBUG 2 = " + jsonTimeLine);
         }
