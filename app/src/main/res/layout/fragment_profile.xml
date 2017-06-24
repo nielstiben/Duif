@@ -13,18 +13,18 @@
     tools:context="com.example.duif.fragment.ProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
         app:srcCompat="@mipmap/banner_twitter" />
 
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="17dp"
@@ -35,10 +35,10 @@
         android:id="@+id/tv_screen_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/iv_banner"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/icon"
+        android:layout_toEndOf="@+id/iv_profile"
         android:text="Screen Name"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
@@ -54,8 +54,8 @@
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/icon"
-        android:layout_below="@+id/icon"
+        android:layout_alignStart="@+id/iv_profile"
+        android:layout_below="@+id/iv_profile"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="14dp"
         android:text="Description"

@@ -71,6 +71,7 @@ public class Connection {
             e.printStackTrace();
         }
         return null;
+
     }
 
     public String getProfile(){

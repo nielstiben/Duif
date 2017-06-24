@@ -1,9 +1,12 @@
 package com.example.duif.fragment;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +35,6 @@ public class ProfileFragment extends Fragment {
 
 
         // Initiate all views
-        ImageView profileImage = (ImageView) view.findViewById(R.id.icon);
         TextView screenName = (TextView) view.findViewById(R.id.tv_screen_name);
         TextView name = (TextView) view.findViewById(R.id.tv_name);
         TextView description = (TextView) view.findViewById(R.id.tv_description);
@@ -41,7 +43,15 @@ public class ProfileFragment extends Fragment {
         TextView followersCount = (TextView) view.findViewById(R.id.tv_followers_count);
         ListView ownTweetsList = (ListView) view.findViewById(R.id.lv_own_tweets);
 
-        // Get all data out of the Content Singleton and put it in the views
+//         Get all data out of the Content Singleton and put it in the views
+        new DownloadImageFromInternet((ImageView)
+                view.findViewById(R.id.iv_profile))
+                .execute("http://pbs.twimg.com/profile_images/530814764687949824/npQQVkq8_normal.png");
+        new DownloadImageFromInternet((ImageView)
+                view.findViewById(R.id.iv_banner))
+                .execute("https://pbs.twimg.com/profile_banners/2244994945/1396995246");
+
+
         screenName.setText(Content.getInstance()
                 .getUserProfile()
                 .getScreenName());
@@ -94,6 +104,31 @@ public class ProfileFragment extends Fragment {
         ownTweetsList.setLayoutParams(params);
 
         return view;
+    }
+
+    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageFromInternet(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String imageURL = urls[0];
+            Bitmap bimage = null;
+            try {
+                InputStream in = new java.net.URL(imageURL).openStream();
+                bimage = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error Message", e.getMessage());
+                e.printStackTrace();
+            }
+            return bimage;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
     }
 
 }
