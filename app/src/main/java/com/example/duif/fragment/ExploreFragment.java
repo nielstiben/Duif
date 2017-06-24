@@ -65,7 +65,7 @@ public class ExploreFragment extends Fragment {
         @Override
         public void run() {
             System.out.println("Debug = " + Connection.getInstance().getSearchTweet(searchQuerry));
-            tweets = JSONParser.parseTweets(Connection.getInstance().getSearchTweet(searchQuerry));
+            tweets = JSONParser.parseTweetsForSearchQuery(Connection.getInstance().getSearchTweet(searchQuerry));
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
