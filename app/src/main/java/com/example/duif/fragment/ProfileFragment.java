@@ -44,12 +44,12 @@ public class ProfileFragment extends Fragment {
         ListView ownTweetsList = (ListView) view.findViewById(R.id.lv_own_tweets);
 
 //         Get all data out of the Content Singleton and put it in the views
-        new DownloadImageFromInternet((ImageView)
-                view.findViewById(R.id.iv_profile))
-                .execute(Content.getInstance().getUserProfile().getProfileImageUrl());
-        new DownloadImageFromInternet((ImageView)
-                view.findViewById(R.id.iv_banner))
-                .execute(Content.getInstance().getUserProfile().getProfileBannerUrl());
+//        new DownloadImageFromInternet((ImageView)
+//                view.findViewById(R.id.iv_profile))
+//                .execute(Content.getInstance().getUserProfile().getProfileImageUrl());
+//        new DownloadImageFromInternet((ImageView)
+//                view.findViewById(R.id.iv_banner))
+//                .execute(Content.getInstance().getUserProfile().getProfileBannerUrl());
 
 
         screenName.setText(Content.getInstance()
