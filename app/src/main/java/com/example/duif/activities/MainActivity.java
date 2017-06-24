@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // Setup tweet list
-        //Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
+        Content.getInstance().setTweets(JSONParser.parseTweets(TweetsJSONString));
 
         // Setup profile page
         Content.getInstance().setUserProfile(JSONParser.parseUser(ProfilePageJSONString));

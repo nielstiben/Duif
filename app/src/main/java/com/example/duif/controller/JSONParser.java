@@ -19,10 +19,10 @@ public class JSONParser {
     public static ArrayList<Tweet> parseTweets(String JSONString) {
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();
         try {
-            JSONObject jsonObj = new JSONObject(JSONString);
 
             // Getting JSON Array node
-            JSONArray statuses = jsonObj.getJSONArray("statuses");
+            JSONArray statuses = new JSONArray(JSONString);
+
 
             // Loop through all statuses
             for (int i = 0; i < statuses.length(); i++) {
@@ -58,6 +58,8 @@ public class JSONParser {
                 //// TODO: 20-6-2017 Convert the user into an Object
                 JSONObject userObject = status.getJSONObject("user");
                 User user = new User();
+                user.setName(userObject.getString("name"));
+                user.setScreenName(userObject.getString("screen_name"));
 
                 // Get the amount of retweets and favourites
                 int retweetCount = status.getInt("retweet_count");
@@ -77,7 +79,6 @@ public class JSONParser {
 
 
                 // parse attributes into java object
-                Tweet minimalTweet = new Tweet(createdAt, text);
                 Tweet tweet = new Tweet(createdAt, id, text, truncated, entities, null, source, null, user, retweetCount, favouriteCount, retweeted, favorited, possiblySensitive, language);
 
                 // adding status to the list
