@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void proccesData(){
         ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
         Content.getInstance().setTweets(tweets);
+        System.out.println(jsonProfile);
         Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfile));
 
     }
