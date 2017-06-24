@@ -94,64 +94,64 @@ public class JSONParser {
             JSONObject userObj = new JSONObject(JSONString);
 
             user.setId(userObj.getInt("id"));
-            user.setIdStr(userObj.getString("id_str"));
+            //user.setIdStr(userObj.getString("id_str"));
             user.setName(userObj.getString("name"));
             user.setScreenName(userObj.getString("screen_name"));
-            user.setLocation(userObj.getString("location"));
+            //user.setLocation(userObj.getString("location"));
             user.setDescription(userObj.getString("description"));
-            user.setUrl(userObj.getString("url"));
+            //user.setUrl(userObj.getString("url"));
 
-            // TODO: 20-6-2017 Set entities
-            user.setEntities(null);
-            user.setProtected(userObj.getBoolean("protected"));
+            //user.setEntities(null);
+            //user.setProtected(userObj.getBoolean("protected"));
 
             user.setFollowersCount(userObj.getInt("followers_count"));
             user.setFriendsCount(userObj.getInt("friends_count"));
             user.setListedCount(userObj.getInt("listed_count"));
 
-            user.setCreatedAt(userObj.getString("created_at"));
-            user.setFavouritesCount(userObj.getInt("favourites_count"));
-            user.setUtcOffset(userObj.getInt("utc_offset"));
-            user.setTimeZone(userObj.getString("time_zone"));
 
-            user.setGeoEnabled(userObj.getBoolean("geo_enabled"));
-            user.setVerified(userObj.getBoolean("verified"));
+            //user.setCreatedAt(userObj.getString("created_at"));
+            //user.setFavouritesCount(userObj.getInt("favourites_count"));
+            //user.setUtcOffset(userObj.getInt("utc_offset"));
+            //user.setTimeZone(userObj.getString("time_zone"));
+
+            //user.setGeoEnabled(userObj.getBoolean("geo_enabled"));
+            //user.setVerified(userObj.getBoolean("verified"));
 
             user.setStatusesCount(userObj.getInt("statuses_count"));
-            user.setLang(userObj.getString("lang"));
+            //user.setLang(userObj.getString("lang"));
 
-            // TODO: 20-6-2017  Set statuses
-            user.setStatus(null);
+            //user.setStatus(null);
 
-            user.setContributorsEnabled(userObj.getBoolean("contributors_enabled"));
-            user.setTranslator(userObj.getBoolean("is_translator"));
-            user.setTranslatorEnabled(userObj.getBoolean("is_translation_enabled"));
+            //user.setContributorsEnabled(userObj.getBoolean("contributors_enabled"));
+            //user.setTranslator(userObj.getBoolean("is_translator"));
+            //user.setTranslatorEnabled(userObj.getBoolean("is_translation_enabled"));
 
-            user.setProfileBackgroundColor(userObj.getString("profile_background_color"));
-            user.setProfileBackgroundImageUrl(userObj.getString("profile_background_image_url"));
-            user.setProfileBackgroundImageUrlHTTPS(userObj.getString("profile_background_image_url_https"));
+            //user.setProfileBackgroundColor(userObj.getString("profile_background_color"));
+            //user.setProfileBackgroundImageUrl(userObj.getString("profile_background_image_url"));
+            //user.setProfileBackgroundImageUrlHTTPS(userObj.getString("profile_background_image_url_https"));
             user.setProfileImageUrl(userObj.getString("profile_image_url"));
-            user.setProfileImageUrlHTTPS(userObj.getString("profile_image_url_https"));
+            //user.setProfileImageUrlHTTPS(userObj.getString("profile_image_url_https"));
             user.setProfileBannerUrl(userObj.getString("profile_banner_url"));
-            user.setProfileLinkColor(userObj.getString("profile_link_color"));
-            user.setProfileSidebarBorderColor(userObj.getString("profile_sidebar_border_color"));
-            user.setProfileSidebarFillColor(userObj.getString("profile_sidebar_fill_color"));
-            user.setProfileTextColor(userObj.getString("profile_text_color"));
-            user.setProfileUseBackgroundImage(userObj.getBoolean("profile_use_background_image"));
+            //user.setProfileLinkColor(userObj.getString("profile_link_color"));
+            //user.setProfileSidebarBorderColor(userObj.getString("profile_sidebar_border_color"));
+            //user.setProfileSidebarFillColor(userObj.getString("profile_sidebar_fill_color"));
+            //user.setProfileTextColor(userObj.getString("profile_text_color"));
+            //user.setProfileUseBackgroundImage(userObj.getBoolean("profile_use_background_image"));
 
-            user.setHasExtendedProfile(userObj.getBoolean("has_extended_profile"));
-            user.setDefaultProfile(userObj.getBoolean("default_profile"));
-            user.setDefaultProfileImage(userObj.getBoolean("default_profile_image"));
+            //user.setHasExtendedProfile(userObj.getBoolean("has_extended_profile"));
+            //user.setDefaultProfile(userObj.getBoolean("default_profile"));
+            //user.setDefaultProfileImage(userObj.getBoolean("default_profile_image"));
 
             user.setFollowing(userObj.getBoolean("following"));
             user.setFollowRequestSent(userObj.getBoolean("follow_request_sent"));
 
-            user.setNotifications(userObj.getBoolean("notifications"));
-            user.setTranslatorType(userObj.getString("translator_type"));
+            //user.setNotifications(userObj.getBoolean("notifications"));
+            //user.setTranslatorType(userObj.getString("translator_type"));
 
 
         } catch (JSONException e) {
             e.printStackTrace();
+
         }
         return user;
     }

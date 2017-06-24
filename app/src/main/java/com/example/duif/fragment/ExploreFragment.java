@@ -32,6 +32,7 @@ public class ExploreFragment extends Fragment {
                 TextView result = (TextView)view.findViewById(R.id.tv_result);
                 ListView resultTweetsList = (ListView)view.findViewById(R.id.lv_search_result_tweets);
 
+
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
                     resultTweetsList.setAdapter(adapter);
