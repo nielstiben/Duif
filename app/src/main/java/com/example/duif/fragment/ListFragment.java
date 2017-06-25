@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.activities.MainActivity;
+import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
 import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.dialogs.PostTweetDialog;
@@ -27,8 +28,12 @@ import com.example.duif.model.Tweet;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ListFragment extends Fragment{
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private long tweetID;
 
 
     @Nullable
@@ -70,10 +75,13 @@ public class ListFragment extends Fragment{
                     public void onClick(DialogInterface dialog, int which) {
                         if(which == 0 ){
                             // Retweet
-                            long id = Content.getInstance().getTweets().get(position).getId();
+                            tweetID = (Content.getInstance().getTweets().get(position).getId()*-1);
+                            executorService.execute(makeRetweet);
+
                         }else if(which ==1){
                             // Favourite
-                            Content.getInstance().getTweets().get(position).getId();
+                            tweetID = (Content.getInstance().getTweets().get(position).getId()*-1);
+                            executorService.execute(makeFavourite);
                         }
                     }
                 });
@@ -86,5 +94,32 @@ public class ListFragment extends Fragment{
         return view;
 
     }
+
+    Runnable makeFavourite = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("ID = " + tweetID);
+            System.out.println(Connection.getInstance().makeFavourite(tweetID));
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                }
+            });
+        }
+    };
+
+    Runnable makeRetweet = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("ID = " + tweetID);
+            System.out.println(Connection.getInstance().makeRetweet(tweetID));
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
+    };
 }
 

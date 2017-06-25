@@ -123,4 +123,28 @@ public class Connection {
         return null;
     }
 
+    public String makeRetweet(long tweetID) {
+        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/retweet/" + tweetID + ".json", service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String makeFavourite(long tweetID) {
+        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/favorites/create.json?id=" + tweetID, service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
