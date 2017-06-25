@@ -123,7 +123,7 @@ public class Connection {
         return null;
     }
 
-    public String makeRetweet(long tweetID) {
+    public String makeRetweet(String tweetID) {
         final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/retweet/" + tweetID + ".json", service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
@@ -135,7 +135,7 @@ public class Connection {
         return null;
     }
 
-    public String makeFavourite(long tweetID) {
+    public String makeFavourite(String tweetID) {
         final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/favorites/create.json?id=" + tweetID, service);
         service.signRequest(accessToken, request);
         final Response response = request.send();

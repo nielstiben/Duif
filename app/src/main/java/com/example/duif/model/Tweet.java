@@ -2,7 +2,7 @@ package com.example.duif.model;
 
 public class Tweet {
     public String createdAt;
-    public long id;
+    public String id;
     public String text;
     public boolean truncated;
     public Entity[] entities;
@@ -25,7 +25,7 @@ public class Tweet {
     }
 
     // Full constructor
-    public Tweet(String createdAt, long id, String text, boolean truncated, Entity[] entities, Entity[] extendedEntities, String source, Tweet inReplyTo, User user, long retweetCount, long favoritedCount, boolean retweeted, boolean favorited, boolean possiblySensitive, String lang) {
+    public Tweet(String createdAt, String id, String text, boolean truncated, Entity[] entities, Entity[] extendedEntities, String source, Tweet inReplyTo, User user, long retweetCount, long favoritedCount, boolean retweeted, boolean favorited, boolean possiblySensitive, String lang) {
         this.createdAt = createdAt;
         this.id = id;
         this.text = text;
@@ -47,7 +47,7 @@ public class Tweet {
         return createdAt;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

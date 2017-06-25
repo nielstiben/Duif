@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 
 public class ListFragment extends Fragment{
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
-    private long tweetID;
+    private String tweetID;
 
 
     @Nullable
@@ -75,12 +75,12 @@ public class ListFragment extends Fragment{
                     public void onClick(DialogInterface dialog, int which) {
                         if(which == 0 ){
                             // Retweet
-                            tweetID = (Content.getInstance().getTweets().get(position).getId()*-1);
+                            tweetID = Content.getInstance().getTweets().get(position).getId();
                             executorService.execute(makeRetweet);
 
                         }else if(which ==1){
                             // Favourite
-                            tweetID = (Content.getInstance().getTweets().get(position).getId()*-1);
+                            tweetID = Content.getInstance().getTweets().get(position).getId();
                             executorService.execute(makeFavourite);
                         }
                     }

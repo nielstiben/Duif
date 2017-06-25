@@ -5,7 +5,7 @@ package com.example.duif.model;
  */
 
 public class User {
-    private int id;
+    private String id;
     private String idStr;
     private String name;
     private String screenName;
@@ -67,11 +67,11 @@ public class User {
     public User() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

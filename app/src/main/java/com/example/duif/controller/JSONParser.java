@@ -33,7 +33,7 @@ public class JSONParser {
                 String createdAt = status.getString("created_at");
 
                 // Get the ID of the tweet
-                int id = status.getInt("id");
+                String id = status.getString("id");
 
                 // Get the text of the tweet
                 String text = status.getString("text");
@@ -92,7 +92,7 @@ public class JSONParser {
         try {
             JSONObject userObj = new JSONObject(JSONString);
 
-            user.setId(userObj.getInt("id"));
+            user.setId(userObj.getString("id"));
             //user.setIdStr(userObj.getString("id_str"));
             user.setName(userObj.getString("name"));
             user.setScreenName(userObj.getString("screen_name"));
@@ -173,7 +173,7 @@ public class JSONParser {
                 String createdAt = status.getString("created_at");
 
                 // Get the ID of the tweet
-                int id = status.getInt("id");
+                String id = status.getString("id");
 
                 // Get the text of the tweet
                 String text = status.getString("text");
