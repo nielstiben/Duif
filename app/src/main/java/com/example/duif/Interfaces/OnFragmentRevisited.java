@@ -1,4 +1,4 @@
-package com.example.duif;
+package com.example.duif.Interfaces;
 
 /**
  * Created by wybrenoppedijk on 25/06/2017.

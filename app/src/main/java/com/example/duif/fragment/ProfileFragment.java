@@ -15,16 +15,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.duif.OnFragmentRevisited;
+import com.example.duif.Interfaces.OnFragmentRevisited;
 import com.example.duif.R;
-import com.example.duif.controller.JSONParser;
 import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.model.Content;
 
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ProfileFragment extends Fragment {
     private static OnFragmentRevisited onFragmentRevisited;

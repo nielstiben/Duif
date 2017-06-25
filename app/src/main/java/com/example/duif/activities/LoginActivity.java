@@ -5,18 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 
 import com.example.duif.Interfaces.UrlHandler;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Verb;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,7 +42,7 @@ public class LoginActivity extends AppCompatActivity  implements UrlHandler{
         getAccessToken = new Runnable() {
             @Override
             public void run() {
-                Connection.getInstance().getAccesToken(verifier);
+                Connection.getInstance().getAccessToken(verifier);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }

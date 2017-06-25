@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.duif.OnFragmentRevisited;
+import com.example.duif.Interfaces.OnFragmentRevisited;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
