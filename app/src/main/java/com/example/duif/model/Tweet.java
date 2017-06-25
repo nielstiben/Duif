@@ -1,5 +1,8 @@
 package com.example.duif.model;
 
+/**
+ * Data storage class.
+ */
 public class Tweet {
     public String createdAt;
     public String id;

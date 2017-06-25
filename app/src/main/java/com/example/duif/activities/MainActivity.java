@@ -1,8 +1,8 @@
 package com.example.duif.activities;
 
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,19 +18,36 @@ import com.example.duif.model.Content;
 import com.example.duif.model.Tweet;
 import com.example.duif.view.MenuBarTile;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited{
+/**
+ * Core of our application. Is respponsible for getting the content from twitter.
+ */
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited {
 
     Fragment fragment = new ListFragment();
 
     private String jsonTimeLine;
     private String jsonProfile;
     private String jsonProfileCredentials;
+    /**
+     * This Thread is responsible for getting the timeline and the profile of the user from twitter.
+     */
+    Runnable getJsonFromTwitter = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                jsonTimeLine = Connection.getInstance().getTimeLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            jsonProfile = Connection.getInstance().getUserTweets();
+            jsonProfileCredentials = Connection.getInstance().getUserProfileInformation();
+            proccesData();
+        }
+    };
     private MenuBarTile mbtHome;
     private MenuBarTile mbtProfile;
     private MenuBarTile mbtExplore;
@@ -54,37 +71,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initiateMenu();
 
 
-
     }
 
-    Runnable getJsonFromTwitter = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                jsonTimeLine = Connection.getInstance().getTimeLine();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            jsonProfile = Connection.getInstance().getUserTweets();
-            jsonProfileCredentials = Connection.getInstance().getUserProfileInformation();
-            proccesData();
-        }
-    };
-
-    private void proccesData(){
-        ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
+    /**
+     * THis method put the data in to the content singleton.
+     */
+    private void proccesData() {
+        ArrayList<Tweet> tweets = JSONParser.parseTweets(jsonTimeLine);
         Content.getInstance().setTweets(tweets);
         Content.getInstance().setUserTweets(JSONParser.parseTweets(jsonProfile));
         Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfileCredentials));
 
     }
 
-
+    /**
+     * Welcome message!
+     */
     public void showWelcomeMessage() {
         Toast.makeText(getApplicationContext(), "Roekoe!", Toast.LENGTH_SHORT).show();
     }
 
-    private void initiateMenu(){
+    /**
+     * Set the layout for the menubar.
+     */
+    private void initiateMenu() {
         // Find menu bar tiles
         mbtHome = (MenuBarTile) findViewById(R.id.mbt_home);
         mbtProfile = (MenuBarTile) findViewById(R.id.mbt_profile);
@@ -110,13 +120,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mbtExplore.setOnClickListener(this);
         mbtAbout.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         mbtHome.setState(0);
         mbtProfile.setState(0);
         mbtExplore.setState(0);
         mbtAbout.setState(0);
-
 
 
         switch (v.getId()) {
@@ -143,11 +153,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .commit();
     }
 
-
+    /**
+     * Reloads the data if you revist the page. THis is not working correct right now.
+     */
     @Override
     public void onRevisitHandler() {
         executorService.execute(getJsonFromTwitter);
-
     }
 }
 

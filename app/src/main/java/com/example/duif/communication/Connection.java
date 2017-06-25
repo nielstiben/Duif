@@ -1,7 +1,6 @@
 package com.example.duif.communication;
 
 import com.example.duif.activities.LoginActivity;
-import com.example.duif.model.Content;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
@@ -13,6 +12,10 @@ import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.IOException;
 
+
+/**
+ * This a singleton class that is responsible for all network connections.
+ */
 public class Connection {
 
     private static Connection instance;
@@ -39,6 +42,7 @@ public class Connection {
 
     /**
      * This class is a singleton. Method to get the singleton.
+     *
      * @return The singleton of the class.
      */
 
@@ -52,9 +56,10 @@ public class Connection {
     /**
      * It first asks the request token.
      * After it, it changes it for an authorization url.
+     *
      * @return the authorization url.
      */
-    public String getRequestUrl(){
+    public String getRequestUrl() {
         try {
             requestToken = service.getRequestToken();
         } catch (IOException e) {
@@ -65,10 +70,11 @@ public class Connection {
 
     /**
      * Methot to obtain the access token. And the actual "login".
+     *
      * @param verifier the part from the callback url, with the verfier.
      * @return The access token.
      */
-    public OAuth1AccessToken getAccessToken(String verifier){
+    public OAuth1AccessToken getAccessToken(String verifier) {
         try {
             accessToken = service.getAccessToken(requestToken, verifier);
             LoginActivity.isLogedIn = true;
@@ -81,9 +87,10 @@ public class Connection {
 
     /**
      * Helper method to get the timeline of the current logged in user.
+     *
      * @return Timeline of current logged in user in JSON format.
      */
-    public String getTimeLine(){
+    public String getTimeLine() {
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
@@ -98,10 +105,11 @@ public class Connection {
 
     /**
      * Helper method to get all your own tweets.
+     *
      * @return All the tweets of the current user in JSON format.
      */
 
-    public String getUserTweets(){
+    public String getUserTweets() {
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json", service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
@@ -113,8 +121,13 @@ public class Connection {
         return null;
     }
 
+    /**
+     * Helper method to get all the tweets of a specific user.
+     *
+     * @return All the tweets of a specific user in JSON format.
+     */
     public String getUserTweets(String screenName) {
-        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name="+ screenName, service);
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + screenName, service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
@@ -127,9 +140,10 @@ public class Connection {
 
     /**
      * Helper method to get all the profile information.
+     *
      * @return Profile information in JSON format.
      */
-    public String getUserProfileInformation(){
+    public String getUserProfileInformation() {
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/account/verify_credentials.json", service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
@@ -141,12 +155,14 @@ public class Connection {
         return null;
     }
 
-    /**|
+    /**
+     * |
      * Helper method to search for a specefic tweet.
+     *
      * @param question the search term.
      * @return All tweets that match the parameter, in JSON format.
      */
-    public String getSearchTweet(String question){
+    public String getSearchTweet(String question) {
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/search/tweets.json?q=" + question + "&count=10", service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
@@ -160,11 +176,12 @@ public class Connection {
 
     /**
      * Helper method to show a specefic user profile.
+     *
      * @param screenName The screenname of the user.
      * @return The profile information of a specific user, in JSON format.
      */
     public String getSpeceficUserProfile(String screenName) {
-        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name=" + screenName , service);
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name=" + screenName, service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
@@ -177,11 +194,12 @@ public class Connection {
 
     /**
      * Helper method to place a tweet.
+     *
      * @param tweet Text of the tweet.
      * @return All the information of the tweet. We dont use it yet, in JSON format.
      */
     public String placeTweet(String tweet) {
-        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/update.json?status=" + tweet , service);
+        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/update.json?status=" + tweet, service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
@@ -194,6 +212,7 @@ public class Connection {
 
     /**
      * Helper method to retweet a tweet.
+     *
      * @param tweetID The ID of the tweet that should be retweeted.
      * @return All the information of the tweet, in JSON format.
      */
@@ -212,6 +231,7 @@ public class Connection {
 
     /**
      * Helper method to favourite a tweet.
+     *
      * @param tweetID The ID of the tweet that should be retweeted.
      * @return All the information of the tweet, in JSON foramt.
      */

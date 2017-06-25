@@ -1,7 +1,5 @@
 package com.example.duif.controller;
 
-import android.util.Log;
-
 import com.example.duif.model.Entity;
 import com.example.duif.model.Tweet;
 import com.example.duif.model.User;
@@ -12,11 +10,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for all JSON parsing.
+ */
 public class JSONParser {
     /**
-     * Converts a Twitter JSON-String into a Java Object
+     * Converts a Twitter JSON-String into a list of tweets.
      *
-     * @param JSONString JSON String that containing all statuses that will be converted
+     * @param JSONString THe JSON string that should be parsed.
+     * @return a list of all tweets.
      */
     public static ArrayList<Tweet> parseTweets(String JSONString) {
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();
@@ -40,11 +42,9 @@ public class JSONParser {
                 // Get the text of the tweet
                 String text = status.getString("text");
 
-                // // TODO: 20-6-2017 WTF is truncated??
                 boolean truncated = status.getBoolean("truncated");
 
                 // Get entities of the tweet
-                //// TODO: 20-6-2017 Convert the entities into an Object
                 JSONObject entitiesObject = status.getJSONObject("entities");
                 Entity[] entities = null;
 
@@ -68,7 +68,6 @@ public class JSONParser {
                 boolean retweeted = status.getBoolean("retweeted");
 
                 // Get the possibly_sensitive status of the tweet
-                // TODO: 20-6-2017 this value is not always provided. If not provided, set this value to false;
                 boolean possiblySensitive = false;
                 //possiblySensitive = status.getBoolean("possibly_sensitive");
 
@@ -89,6 +88,12 @@ public class JSONParser {
         return tweets;
     }
 
+    /**
+     * Converts a Twitter JSON-String into a User.
+     *
+     * @param JSONString THe JSON string that should be parsed.
+     * @return all user information.
+     */
     public static User parseUser(String JSONString) {
         User user = new User();
         try {
@@ -157,6 +162,12 @@ public class JSONParser {
         return user;
     }
 
+    /**
+     * Converts a Twitter JSON-String into a list of tweets.
+     *
+     * @param JSONString THe JSON string that should be parsed.
+     * @return a list of tweets.
+     */
     public static ArrayList<Tweet> parseTweetsForSearchQuery(String JSONString) {
         ArrayList<Tweet> tweets = new ArrayList<Tweet>();
         try {
@@ -180,11 +191,9 @@ public class JSONParser {
                 // Get the text of the tweet
                 String text = status.getString("text");
 
-                // // TODO: 20-6-2017 WTF is truncated??
                 boolean truncated = status.getBoolean("truncated");
 
                 // Get entities of the tweet
-                //// TODO: 20-6-2017 Convert the entities into an Object
                 JSONObject entitiesObject = status.getJSONObject("entities");
                 Entity[] entities = null;
 
@@ -208,7 +217,6 @@ public class JSONParser {
                 boolean retweeted = status.getBoolean("retweeted");
 
                 // Get the possibly_sensitive status of the tweet
-                // TODO: 20-6-2017 this value is not always provided. If not provided, set this value to false;
                 boolean possiblySensitive = false;
                 //possiblySensitive = status.getBoolean("possibly_sensitive");
 
@@ -228,7 +236,6 @@ public class JSONParser {
         }
         return tweets;
     }
-
 
 
 }

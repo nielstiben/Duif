@@ -10,12 +10,21 @@ import android.webkit.WebViewClient;
 import com.example.duif.Interfaces.UrlHandler;
 import com.example.duif.R;
 
-import java.net.URL;
-import java.sql.SQLOutput;
-
+/**
+ * This is the webview that loads the twitter page.
+ */
 public class WebViewActivity extends AppCompatActivity {
-    private WebView webContent;
     private static UrlHandler listener;
+    private WebView webContent;
+
+    /**
+     * Add the class to the interface.
+     *
+     * @param urlHandler Class that implements the interface.
+     */
+    public static void addListener(UrlHandler urlHandler) {
+        listener = urlHandler;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +39,25 @@ public class WebViewActivity extends AppCompatActivity {
             webContent.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                     System.out.println("URL CHANGED " + webContent.getUrl());
-                        view.loadUrl(request.getUrl().toString());
+                    System.out.println("URL CHANGED " + webContent.getUrl());
+                    view.loadUrl(request.getUrl().toString());
 
-                    if (webContent.getUrl().startsWith("https://saxion.nl/connection/?oauth_token=")){
+                    if (webContent.getUrl().startsWith("https://saxion.nl/connection/?oauth_token=")) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        listener.onLoggedIn(webContent.getUrl()); //TODO Later on check if it's really the logged in url.
+                        listener.onLoggedIn(webContent.getUrl());
                         startActivity(intent);
 
                     }
-                    //TODO display error
                     return true;
                 }
+                //for older phones.
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     System.out.println("URL CHANGED " + webContent.getUrl());
                     view.loadUrl(url);
 
-                    if (webContent.getUrl().startsWith("https://saxion.nl/connection/?oauth_token=")){
+                    if (webContent.getUrl().startsWith("https://saxion.nl/connection/?oauth_token=")) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         listener.onLoggedIn(webContent.getUrl()); //TODO Later on check if it's really the logged in url.
                         startActivity(intent);
@@ -60,10 +69,6 @@ public class WebViewActivity extends AppCompatActivity {
 
         }
 
-    }
-
-    public static void addListener(UrlHandler urlHandler){
-        listener = urlHandler;
     }
 
 }

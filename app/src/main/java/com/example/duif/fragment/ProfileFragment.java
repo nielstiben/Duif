@@ -26,6 +26,9 @@ import com.example.duif.model.User;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * Class that shows a profil of a user.
+ */
 public class ProfileFragment extends Fragment {
     private static OnFragmentRevisited onFragmentRevisited;
     private boolean isSpeceficUserProfile;
@@ -53,7 +56,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         if (isSpeceficUserProfile) {
-            user = Content.getInstance().getSpeceficProfile();
+            user = Content.getInstance().getSpecificProfile();
             tweets = Content.getInstance().getSpecificTweets();
         } else {
             user = Content.getInstance().getUserProfile();

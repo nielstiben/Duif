@@ -5,39 +5,35 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duif.R;
-import com.example.duif.activities.MainActivity;
 import com.example.duif.communication.Connection;
-import com.example.duif.controller.JSONParser;
-import com.example.duif.controller.TweetListAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.zip.Inflater;
+
 
 /**
- * Created by raffe on 24-6-2017.
+ * This dialog let the user place a tweet.
  */
-
 public class PostTweetDialog extends DialogFragment {
     private static int counter;
     private static TextView count;
     private String tweetText;
+    Runnable placeTweet = new Runnable() {
+        @Override
+        public void run() {
+            Connection.getInstance().placeTweet(tweetText);
+        }
+    };
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -47,8 +43,8 @@ public class PostTweetDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_post_tweet, null);
 
         // Inflate and set the layout for the dialog
-        count = (TextView)view.findViewById(R.id.tv_char_count);
-        final EditText tweet = (EditText)view.findViewById(R.id.et_tweet);
+        count = (TextView) view.findViewById(R.id.tv_char_count);
+        final EditText tweet = (EditText) view.findViewById(R.id.et_tweet);
 
         counter = 0;
         count.setText(String.format("%s / 160", String.valueOf(counter)));
@@ -76,7 +72,7 @@ public class PostTweetDialog extends DialogFragment {
                 .setPositiveButton("Post", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getContext(), "'" + tweet.getText().toString() + "' Posted!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "'" + tweet.getText().toString() + "' Posted!", Toast.LENGTH_LONG).show();
                         // Post tweet
                         tweetText = tweet.getText().toString();
                         executorService.execute(placeTweet);
@@ -91,11 +87,4 @@ public class PostTweetDialog extends DialogFragment {
                 });
         return builder.create();
     }
-
-    Runnable placeTweet = new Runnable() {
-        @Override
-        public void run() {
-            Connection.getInstance().placeTweet(tweetText);
-        }
-    };
 }

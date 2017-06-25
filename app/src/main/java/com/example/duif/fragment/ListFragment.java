@@ -1,43 +1,74 @@
 package com.example.duif.fragment;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.duif.R;
-import com.example.duif.activities.MainActivity;
 import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
 import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.dialogs.PostTweetDialog;
 import com.example.duif.dialogs.ShowProfileDialog;
 import com.example.duif.model.Content;
-import com.example.duif.model.Tweet;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ListFragment extends Fragment{
+/**
+ * Fragment that shows the main timeline. With on long press an option for retweet or favourite. And on short press
+ * you can view the profile of that specific account.
+ */
+public class ListFragment extends Fragment {
     private ExecutorService executorService = Executors.newFixedThreadPool(3);
     private String tweetID;
+    Runnable makeFavourite = new Runnable() {
+        @Override
+        public void run() {
+            Connection.getInstance().makeFavourite(tweetID);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                }
+            });
+        }
+    };
+    Runnable makeRetweet = new Runnable() {
+        @Override
+        public void run() {
+            Connection.getInstance().makeRetweet(tweetID);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
+    };
     private ShowProfileDialog showProfileDialog;
     private String screenName;
-
+    Runnable speceficDialog = new Runnable() {
+        @Override
+        public void run() {
+            Content.getInstance().setSpecificProfile(JSONParser.parseUser(Connection.getInstance().getSpeceficUserProfile(screenName)));
+            Content.getInstance().setSpecificTweets(JSONParser.parseTweets(Connection.getInstance().getUserTweets(screenName)));
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showProfileDialog.show(getFragmentManager().beginTransaction(), "DialogFragment");
+                }
+            });
+        }
+    };
 
     @Nullable
     @Override
@@ -49,14 +80,14 @@ public class ListFragment extends Fragment{
         final PostTweetDialog postTweetDialog = new PostTweetDialog();
 
         TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getTweets());
-        FloatingActionButton postTweet = (FloatingActionButton)view.findViewById(R.id.fab_post_tweet);
+        FloatingActionButton postTweet = (FloatingActionButton) view.findViewById(R.id.fab_post_tweet);
 
         postTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     postTweetDialog.show(fragmentTransaction, "PostTweetFragment");
-                }catch (IllegalStateException e){
+                } catch (IllegalStateException e) {
                     e.printStackTrace();
                 }
             }
@@ -77,7 +108,7 @@ public class ListFragment extends Fragment{
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                CharSequence options[] = new CharSequence[] {"Retweet", "Favourite"};
+                CharSequence options[] = new CharSequence[]{"Retweet", "Favourite"};
 
                 // Open option dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -85,12 +116,12 @@ public class ListFragment extends Fragment{
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0 ){
+                        if (which == 0) {
                             // Retweet
                             tweetID = Content.getInstance().getTweets().get(position).getId();
                             executorService.execute(makeRetweet);
 
-                        }else if(which ==1){
+                        } else if (which == 1) {
                             // Favourite
                             tweetID = Content.getInstance().getTweets().get(position).getId();
                             executorService.execute(makeFavourite);
@@ -106,45 +137,5 @@ public class ListFragment extends Fragment{
         return view;
 
     }
-    Runnable speceficDialog = new Runnable() {
-        @Override
-        public void run() {
-            Content.getInstance().setSpeceficProfile(JSONParser.parseUser(Connection.getInstance().getSpeceficUserProfile(screenName)));
-            Content.getInstance().setSpecificTweets(JSONParser.parseTweets(Connection.getInstance().getUserTweets(screenName)));
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showProfileDialog.show(getFragmentManager().beginTransaction(), "DialogFragment");
-                }
-            });
-        }
-    };
-
-
-    Runnable makeFavourite = new Runnable() {
-        @Override
-        public void run() {
-            Connection.getInstance().makeFavourite(tweetID);
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                }
-            });
-        }
-    };
-
-
-    Runnable makeRetweet = new Runnable() {
-        @Override
-        public void run() {
-            Connection.getInstance().makeRetweet(tweetID);
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
-        }
-    };
 }
 

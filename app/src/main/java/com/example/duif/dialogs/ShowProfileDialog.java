@@ -13,9 +13,8 @@ import com.example.duif.R;
 import com.example.duif.fragment.ProfileFragment;
 
 /**
- * Created by raffe on 25-6-2017.
+ * THis is the dialog that shows the profile of a specific user.
  */
-
 public class ShowProfileDialog extends DialogFragment {
 
     public static ShowProfileDialog newInstance(int myIndex) {
@@ -41,7 +40,7 @@ public class ShowProfileDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Bundle bunde = new Bundle();
-        bunde.putBoolean("SPECEFIC",true);
+        bunde.putBoolean("SPECEFIC", true);
         Fragment childFragment = new ProfileFragment();
         childFragment.setArguments(bunde);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

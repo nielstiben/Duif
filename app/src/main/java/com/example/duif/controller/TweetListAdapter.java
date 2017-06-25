@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.model.Tweet;
@@ -21,6 +20,9 @@ import com.example.duif.model.Tweet;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * The adapter for converting a tweet to a listview.
+ */
 public class TweetListAdapter extends ArrayAdapter<Tweet> {
     public TweetListAdapter(@NonNull Context context, ArrayList<Tweet> tweets) {
         super(context, R.layout.list_item_tweet, tweets);
@@ -72,6 +74,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
 
     private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
+
         public DownloadImageFromInternet(ImageView imageView) {
             this.imageView = imageView;
         }
@@ -88,6 +91,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
             }
             return bimage;
         }
+
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }
