@@ -33,8 +33,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ListFragment extends Fragment{
-    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private ExecutorService executorService = Executors.newFixedThreadPool(3);
     private String tweetID;
+    private ShowProfileDialog showProfileDialog;
+    private String screenName;
 
 
     @Nullable
@@ -66,9 +68,9 @@ public class ListFragment extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShowProfileDialog showProfileDialog = ShowProfileDialog.newInstance(0);
-                //showProfileDialog.show(getFragmentManager(), "DialogFragment");
-                showProfileDialog.show(getFragmentManager().beginTransaction(), "DialogFragment");
+                showProfileDialog = ShowProfileDialog.newInstance(0);
+                screenName = Content.getInstance().getTweets().get(position).getUser().getScreenName();
+                executorService.execute(speceficDialog);
             }
         });
 
@@ -104,12 +106,25 @@ public class ListFragment extends Fragment{
         return view;
 
     }
+    Runnable speceficDialog = new Runnable() {
+        @Override
+        public void run() {
+            Content.getInstance().setSpeceficProfile(JSONParser.parseUser(Connection.getInstance().getSpeceficUserProfile(screenName)));
+            Content.getInstance().setSpecificTweets(JSONParser.parseTweets(Connection.getInstance().getUserTweets(screenName)));
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showProfileDialog.show(getFragmentManager().beginTransaction(), "DialogFragment");
+                }
+            });
+        }
+    };
+
 
     Runnable makeFavourite = new Runnable() {
         @Override
         public void run() {
-            System.out.println("ID = " + tweetID);
-            System.out.println(Connection.getInstance().makeFavourite(tweetID));
+            Connection.getInstance().makeFavourite(tweetID);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -122,8 +137,7 @@ public class ListFragment extends Fragment{
     Runnable makeRetweet = new Runnable() {
         @Override
         public void run() {
-            System.out.println("ID = " + tweetID);
-            System.out.println(Connection.getInstance().makeRetweet(tweetID));
+            Connection.getInstance().makeRetweet(tweetID);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

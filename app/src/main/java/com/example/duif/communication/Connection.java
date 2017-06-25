@@ -100,11 +100,23 @@ public class Connection {
 
     /**
      * Helper method to get all your own tweets.
-     * @return All the tweets of an user in JSON format.
+     * @return All the tweets of the current user in JSON format.
      */
 
-    public String getProfile(){
+    public String getUserTweets(){
         final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json", service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getUserTweets(String screenName) {
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name="+ screenName, service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
         try {
@@ -154,7 +166,7 @@ public class Connection {
      * @return The profile information of a specific user, in JSON format.
      */
     public String getSpeceficUserProfile(String screenName) {
-        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/users/show.json?screen_name=" + screenName , service);
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/users/show.json?screen_name=" + screenName , service);
         service.signRequest(accessToken, request);
         final Response response = request.send();
         try {

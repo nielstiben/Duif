@@ -11,7 +11,9 @@ public class Content {
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
     private ArrayList<Tweet> tweetsOnSearch = new ArrayList<>();
     private ArrayList<Tweet> userTweets = new ArrayList<>();
+    private ArrayList<Tweet> specificTweets = new ArrayList<>();
     private User userProfile;
+    private User speceficProfile;
 
     private  Content() {
     }
@@ -54,5 +56,21 @@ public class Content {
 
     public void setTweetsOnSearch(ArrayList<Tweet> tweetsOnSearch) {
         this.tweetsOnSearch = tweetsOnSearch;
+    }
+
+    public User getSpeceficProfile() {
+        return speceficProfile;
+    }
+
+    public void setSpeceficProfile(User speceficProfile) {
+        this.speceficProfile = speceficProfile;
+    }
+
+    public ArrayList<Tweet> getSpecificTweets() {
+        return specificTweets;
+    }
+
+    public void setSpecificTweets(ArrayList<Tweet> specificTweets) {
+        this.specificTweets = specificTweets;
     }
 }

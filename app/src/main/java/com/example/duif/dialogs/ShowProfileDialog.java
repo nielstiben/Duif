@@ -17,15 +17,15 @@ import com.example.duif.fragment.ProfileFragment;
  */
 
 public class ShowProfileDialog extends DialogFragment {
-    public static ShowProfileDialog newInstance(int myIndex) {
-        ShowProfileDialog yourDialogFragment = new ShowProfileDialog();
 
-        //example of passing args
+    public static ShowProfileDialog newInstance(int myIndex) {
+        ShowProfileDialog DialogFragment = new ShowProfileDialog();
+
         Bundle args = new Bundle();
         args.putInt("anIntToSend", myIndex);
-        yourDialogFragment.setArguments(args);
+        DialogFragment.setArguments(args);
 
-        return yourDialogFragment;
+        return DialogFragment;
     }
 
     @Override
@@ -40,7 +40,10 @@ public class ShowProfileDialog extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Bundle bunde = new Bundle();
+        bunde.putBoolean("SPECEFIC",true);
         Fragment childFragment = new ProfileFragment();
+        childFragment.setArguments(bunde);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.content, childFragment).commit();
     }

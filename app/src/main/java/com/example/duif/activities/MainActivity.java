@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             jsonTimeLine = Connection.getInstance().getTimeLine();
-            jsonProfile = Connection.getInstance().getProfile();
+            jsonProfile = Connection.getInstance().getUserTweets();
             jsonProfileCredentials = Connection.getInstance().getUserProfileInformation();
             proccesData();
         }

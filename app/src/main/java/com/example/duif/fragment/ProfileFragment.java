@@ -1,11 +1,12 @@
 package com.example.duif.fragment;
 
 
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,30 @@ import com.example.duif.Interfaces.OnFragmentRevisited;
 import com.example.duif.R;
 import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.model.Content;
+import com.example.duif.model.Tweet;
+import com.example.duif.model.User;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     private static OnFragmentRevisited onFragmentRevisited;
+    private boolean isSpeceficUserProfile;
+    private User user;
+    private ArrayList<Tweet> tweets;
+
+    public static void addListener(OnFragmentRevisited listener) {
+        onFragmentRevisited = listener;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            isSpeceficUserProfile = getArguments().getBoolean("SPECEFIC", false);
+            System.out.println(isSpeceficUserProfile);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +52,13 @@ public class ProfileFragment extends Fragment {
         onFragmentRevisited.onRevisitHandler();
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-
-
+        if (isSpeceficUserProfile) {
+            user = Content.getInstance().getSpeceficProfile();
+            tweets = Content.getInstance().getSpecificTweets();
+        } else {
+            user = Content.getInstance().getUserProfile();
+            tweets = Content.getInstance().getUserTweets();
+        }
 
         // Initiate all views
         TextView screenName = (TextView) view.findViewById(R.id.tv_screen_name);
@@ -47,44 +72,38 @@ public class ProfileFragment extends Fragment {
 //         Get all data out of the Content Singleton and put it in the views
         new DownloadImageFromInternet((ImageView)
                 view.findViewById(R.id.iv_profile))
-                .execute(Content.getInstance().getUserProfile().getProfileImageUrl());
+                .execute(user.getProfileImageUrl());
         new DownloadImageFromInternet((ImageView)
                 view.findViewById(R.id.iv_banner))
-                .execute(Content.getInstance().getUserProfile().getProfileBannerUrl());
+                .execute(user.getProfileBannerUrl());
 
 
-        screenName.setText(Content.getInstance()
-                .getUserProfile()
+        screenName.setText(user
                 .getScreenName());
 
-        name.setText(String.format("@%s", Content.getInstance()
-                .getUserProfile()
+        name.setText(String.format("@%s", user
                 .getName()));
 
-        description.setText(Content.getInstance()
-                .getUserProfile()
+        description.setText(user
                 .getDescription());
 
         statusesCount.setText(
                 String.format("%s Tweets", String.valueOf(
-                        Content.getInstance()
-                                .getUserProfile()
+                        user
                                 .getStatusesCount())));
 
         friendsCount.setText(
                 String.format("%s Following", String.valueOf(
-                        Content.getInstance()
-                                .getUserProfile()
+                        user
                                 .getFriendsCount())));
 
         followersCount.setText(
                 String.format("%s Followers", String.valueOf(
-                        Content.getInstance()
-                                .getUserProfile()
+                        user
                                 .getFollowersCount())));
 
         //JSONParser.parseTweets(PROFILETWEETS);
-        TweetListAdapter adapter = new TweetListAdapter(getContext(), Content.getInstance().getUserTweets());
+        TweetListAdapter adapter = new TweetListAdapter(getContext(), tweets);
         ownTweetsList.setAdapter(adapter);
 
         // Scale the listview in the scroll view
@@ -107,7 +126,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+    class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
 
         public DownloadImageFromInternet(ImageView imageView) {
@@ -130,10 +149,6 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }
-    }
-
-    public static void addListener(OnFragmentRevisited listener){
-        onFragmentRevisited = listener;
     }
 
 }
