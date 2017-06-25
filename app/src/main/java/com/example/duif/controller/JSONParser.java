@@ -95,7 +95,7 @@ public class JSONParser {
             JSONObject userObj = new JSONObject(JSONString);
 
             user.setId(userObj.getString("id"));
-            //user.setIdStr(userObj.getString("id_str"));
+            user.setIdStr(userObj.getString("id_str"));
             user.setName(userObj.getString("name"));
             user.setScreenName(userObj.getString("screen_name"));
             //user.setLocation(userObj.getString("location"));
