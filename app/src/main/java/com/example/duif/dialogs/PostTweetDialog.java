@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duif.Interfaces.OnTweetPlacedHandler;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 
@@ -27,10 +28,12 @@ public class PostTweetDialog extends DialogFragment {
     private static int counter;
     private static TextView count;
     private String tweetText;
+    private static OnTweetPlacedHandler handler;
     Runnable placeTweet = new Runnable() {
         @Override
         public void run() {
             Connection.getInstance().placeTweet(tweetText);
+            handler.onTweedPlaced();
         }
     };
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -86,5 +89,8 @@ public class PostTweetDialog extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+    public static void addListener(OnTweetPlacedHandler listerner){
+        handler = listerner;
     }
 }
