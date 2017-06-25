@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.duif.OnFragmentRevisited;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited{
 
     private String jsonTimeLine;
     private String jsonProfile;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ProfileFragment.addListener(this);
 
         if (LoginActivity.isLogedIn) {
             executorService.execute(getJsonFromTwitter);
@@ -152,5 +154,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .commit();
     }
 
+
+    @Override
+    public void onRevisitHandler() {
+        executorService.execute(getJsonFromTwitter);
+    }
 }
 

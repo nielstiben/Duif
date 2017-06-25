@@ -18,9 +18,14 @@ import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.activities.MainActivity;
+import com.example.duif.communication.Connection;
+import com.example.duif.controller.JSONParser;
+import com.example.duif.controller.TweetListAdapter;
 
 import org.w3c.dom.Text;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.zip.Inflater;
 
 /**
@@ -30,6 +35,8 @@ import java.util.zip.Inflater;
 public class PostTweetDialog extends DialogFragment {
     private static int counter;
     private static TextView count;
+    private String tweetText;
+    private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
 
     @Override
@@ -71,7 +78,9 @@ public class PostTweetDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getContext(), "'" + tweet.getText().toString() + "' Posted!",Toast.LENGTH_LONG).show();
                         // Post tweet
-                        String tweetText = tweet.getText().toString();
+                        tweetText = tweet.getText().toString();
+                        executorService.execute(placeTweet);
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -82,4 +91,11 @@ public class PostTweetDialog extends DialogFragment {
                 });
         return builder.create();
     }
+
+    Runnable placeTweet = new Runnable() {
+        @Override
+        public void run() {
+            Connection.getInstance().placeTweet(tweetText);
+        }
+    };
 }

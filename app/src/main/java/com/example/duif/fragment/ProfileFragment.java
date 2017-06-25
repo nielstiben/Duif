@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.duif.OnFragmentRevisited;
 import com.example.duif.R;
 import com.example.duif.controller.JSONParser;
 import com.example.duif.controller.TweetListAdapter;
@@ -26,12 +27,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ProfileFragment extends Fragment {
+    private static OnFragmentRevisited onFragmentRevisited;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        onFragmentRevisited.onRevisitHandler();
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
 
 
         // Initiate all views
@@ -129,6 +134,10 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }
+    }
+
+    public static void addListener(OnFragmentRevisited listener){
+        onFragmentRevisited = listener;
     }
 
 }

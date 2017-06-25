@@ -111,4 +111,16 @@ public class Connection {
         return null;
     }
 
+    public String placeTweet(String tweet) {
+        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/statuses/update.json?status=" + tweet , service);
+        service.signRequest(accessToken, request);
+        final Response response = request.send();
+        try {
+            return response.getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

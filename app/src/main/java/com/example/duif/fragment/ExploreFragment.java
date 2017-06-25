@@ -27,7 +27,6 @@ import java.util.concurrent.Executors;
 public class ExploreFragment extends Fragment {
     private ArrayList<Tweet> tweets = new ArrayList<>();
     private String searchQuerry;
-    private Handler handler = new Handler();
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
     private ListView resultTweetsList;
     @Override
