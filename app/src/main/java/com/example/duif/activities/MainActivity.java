@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (LoginActivity.isLogedIn) {
             executorService.execute(getJsonFromTwitter);
-            System.out.println("DEBUG 2 = " + jsonTimeLine);
         }
 
         // show our welcome message
@@ -61,7 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Runnable getJsonFromTwitter = new Runnable() {
         @Override
         public void run() {
-            jsonTimeLine = Connection.getInstance().getTimeLine();
+            try {
+                jsonTimeLine = Connection.getInstance().getTimeLine();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             jsonProfile = Connection.getInstance().getUserTweets();
             jsonProfileCredentials = Connection.getInstance().getUserProfileInformation();
             proccesData();
@@ -72,26 +75,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList<Tweet> tweets =  JSONParser.parseTweets(jsonTimeLine);
         Content.getInstance().setTweets(tweets);
         Content.getInstance().setUserTweets(JSONParser.parseTweets(jsonProfile));
-        System.out.println("Profile data:       " + jsonProfileCredentials);
         Content.getInstance().setUserProfile(JSONParser.parseUser(jsonProfileCredentials));
 
     }
 
-
-    private String getJSONStringFromFile(String filename) {
-        String JSONString = null;
-        try {
-            InputStream is = getAssets().open(filename);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            JSONString = new String(buffer, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return JSONString;
-    }
 
     public void showWelcomeMessage() {
         Toast.makeText(getApplicationContext(), "Roekoe!", Toast.LENGTH_SHORT).show();

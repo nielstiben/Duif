@@ -53,12 +53,6 @@ public class LoginActivity extends AppCompatActivity  implements UrlHandler{
         executorService.execute(task);
 
 
-        try {
-            Log.d("Connection", "Connection up");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         // Button for starting the WebViewActivity
         Button loginButton = (Button)findViewById(R.id.btn_login);
         loginButton.setOnClickListener(new View.OnClickListener() {

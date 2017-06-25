@@ -70,10 +70,8 @@ public class Connection {
      */
     public OAuth1AccessToken getAccessToken(String verifier){
         try {
-            System.out.println("RequestToken = " + requestToken);
             accessToken = service.getAccessToken(requestToken, verifier);
             LoginActivity.isLogedIn = true;
-            System.out.println(LoginActivity.isLogedIn);
             return accessToken;
         } catch (IOException e) {
             e.printStackTrace();
