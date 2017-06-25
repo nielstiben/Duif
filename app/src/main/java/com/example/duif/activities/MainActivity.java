@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.duif.Interfaces.OnContentChanged;
 import com.example.duif.Interfaces.OnFragmentRevisited;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
@@ -25,7 +26,7 @@ import java.util.concurrent.Executors;
 /**
  * Core of our application. Is respponsible for getting the content from twitter.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited, OnContentChanged {
 
     Fragment fragment = new ListFragment();
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ProfileFragment.addListener(this);
+        ListFragment.addListener(this);
 
         if (LoginActivity.isLogedIn) {
             executorService.execute(getJsonFromTwitter);
@@ -158,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onRevisitHandler() {
+        executorService.execute(getJsonFromTwitter);
+    }
+
+    @Override
+    public void onContentHasChanged() {
         executorService.execute(getJsonFromTwitter);
     }
 }

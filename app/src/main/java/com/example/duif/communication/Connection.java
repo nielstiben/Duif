@@ -139,7 +139,7 @@ public class Connection {
     }
 
     /**
-     * Helper method to get all the profile information.
+     * Helper method to get all the profile information of the current logged in user.
      *
      * @return Profile information in JSON format.
      */
@@ -157,7 +157,7 @@ public class Connection {
 
     /**
      * |
-     * Helper method to search for a specefic tweet.
+     * Helper method to search for a specefic tweets.
      *
      * @param question the search term.
      * @return All tweets that match the parameter, in JSON format.

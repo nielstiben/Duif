@@ -19,6 +19,7 @@ import com.example.duif.communication.Connection;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 /**
@@ -27,20 +28,20 @@ import java.util.concurrent.Executors;
 public class PostTweetDialog extends DialogFragment {
     private static int counter;
     private static TextView count;
-    private String tweetText;
     private static OnTweetPlacedHandler handler;
-    Runnable placeTweet = new Runnable() {
-        @Override
-        public void run() {
-            Connection.getInstance().placeTweet(tweetText);
-            handler.onTweedPlaced();
-        }
-    };
-    private ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private String tweetText;
+    private AlertDialog.Builder builder;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+    private Future<?> f;
+
+    public static void addListener(OnTweetPlacedHandler listerner) {
+        handler = listerner;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_post_tweet, null);
@@ -78,8 +79,18 @@ public class PostTweetDialog extends DialogFragment {
                         Toast.makeText(getContext(), "'" + tweet.getText().toString() + "' Posted!", Toast.LENGTH_LONG).show();
                         // Post tweet
                         tweetText = tweet.getText().toString();
-                        executorService.execute(placeTweet);
 
+                        f = executorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Connection.getInstance().placeTweet(tweetText);
+
+                            }
+                        });
+                        handler.onTweedPlaced();
+                        while (!f.isDone()) {
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -88,9 +99,7 @@ public class PostTweetDialog extends DialogFragment {
                         PostTweetDialog.this.getDialog().cancel();
                     }
                 });
+
         return builder.create();
-    }
-    public static void addListener(OnTweetPlacedHandler listerner){
-        handler = listerner;
     }
 }

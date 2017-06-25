@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.duif.Interfaces.OnContentChanged;
 import com.example.duif.Interfaces.OnTweetPlacedHandler;
 import com.example.duif.R;
 import com.example.duif.communication.Connection;
@@ -29,10 +30,11 @@ import java.util.concurrent.Executors;
  * Fragment that shows the main timeline. With on long press an option for retweet or favourite. And on short press
  * you can view the profile of that specific account.
  */
-public class ListFragment extends Fragment implements OnTweetPlacedHandler{
+public class ListFragment extends Fragment implements OnTweetPlacedHandler {
     private ExecutorService executorService = Executors.newFixedThreadPool(3);
     private String tweetID;
-    private TweetListAdapter adapter;
+    private static OnContentChanged handler;
+
     Runnable makeFavourite = new Runnable() {
         @Override
         public void run() {
@@ -56,6 +58,7 @@ public class ListFragment extends Fragment implements OnTweetPlacedHandler{
             });
         }
     };
+    private TweetListAdapter adapter;
     private ShowProfileDialog showProfileDialog;
     private String screenName;
     Runnable speceficDialog = new Runnable() {
@@ -140,9 +143,13 @@ public class ListFragment extends Fragment implements OnTweetPlacedHandler{
         return view;
 
     }
+    public static void addListener(OnContentChanged listener){
+        handler = listener;
+    }
 
     @Override
     public void onTweedPlaced() {
+        handler.onContentHasChanged();
         adapter.notifyDataSetChanged();
     }
 }
