@@ -1,6 +1,8 @@
 package com.example.duif.fragment;
 
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -8,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -37,9 +40,6 @@ public class ExploreFragment extends Fragment {
 
         final EditText search = (EditText)view.findViewById(R.id.et_search);
 
-
-
-
         search.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -48,6 +48,12 @@ public class ExploreFragment extends Fragment {
 
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
+                    // hide virtual keyboard
+                    InputMethodManager imm =
+                            (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
+
                     searchQuerry = ""+ search.getText();
                     executorService.execute(searchTweet);
                 }

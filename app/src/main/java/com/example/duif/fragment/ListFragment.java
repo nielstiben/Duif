@@ -1,6 +1,8 @@
 package com.example.duif.fragment;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -10,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duif.R;
 import com.example.duif.activities.MainActivity;
@@ -52,6 +56,32 @@ public class ListFragment extends Fragment{
 
         ListView listView = (ListView) view.findViewById(R.id.listview_tweets);
         listView.setAdapter(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                CharSequence options[] = new CharSequence[] {"Retweet", "Favourite"};
+
+                // Open option dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Select an option");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0 ){
+                            // Retweet
+                            long id = Content.getInstance().getTweets().get(position).getId();
+                        }else if(which ==1){
+                            // Favourite
+                            Content.getInstance().getTweets().get(position).getId();
+                        }
+                    }
+                });
+
+                builder.show();
+                return false;
+            }
+        });
 
         return view;
 

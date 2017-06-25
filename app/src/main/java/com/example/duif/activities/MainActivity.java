@@ -26,6 +26,8 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFragmentRevisited{
 
+    Fragment fragment = new ListFragment();
+
     private String jsonTimeLine;
     private String jsonProfile;
     private String jsonProfileCredentials;
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mbtExplore.setState(0);
         mbtAbout.setState(0);
 
-        Fragment fragment = new ListFragment();
+
 
         switch (v.getId()) {
             case R.id.mbt_home:
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRevisitHandler() {
         executorService.execute(getJsonFromTwitter);
+
     }
 }
 
