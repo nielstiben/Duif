@@ -23,6 +23,7 @@ import com.example.duif.communication.Connection;
 import com.example.duif.controller.JSONParser;
 import com.example.duif.controller.TweetListAdapter;
 import com.example.duif.dialogs.PostTweetDialog;
+import com.example.duif.dialogs.ShowProfileDialog;
 import com.example.duif.model.Content;
 import com.example.duif.model.Tweet;
 
@@ -61,6 +62,15 @@ public class ListFragment extends Fragment{
 
         ListView listView = (ListView) view.findViewById(R.id.listview_tweets);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShowProfileDialog showProfileDialog = ShowProfileDialog.newInstance(0);
+                //showProfileDialog.show(getFragmentManager(), "DialogFragment");
+                showProfileDialog.show(getFragmentManager().beginTransaction(), "DialogFragment");
+            }
+        });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

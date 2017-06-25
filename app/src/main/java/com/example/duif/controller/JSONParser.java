@@ -1,5 +1,7 @@
 package com.example.duif.controller;
 
+import android.util.Log;
+
 import com.example.duif.model.Entity;
 import com.example.duif.model.Tweet;
 import com.example.duif.model.User;
